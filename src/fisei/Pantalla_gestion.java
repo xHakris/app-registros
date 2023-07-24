@@ -16,6 +16,7 @@ public class Pantalla_gestion extends javax.swing.JFrame {
      */
     public Pantalla_gestion() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**

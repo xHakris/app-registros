@@ -21,6 +21,7 @@ import javax.swing.table.DefaultTableModel;
  * @author User
  */
 public class Materia extends javax.swing.JFrame {
+    
     DefaultTableModel modelo = new DefaultTableModel();
     String[] ids;
     DefaultComboBoxModel pofesoresModel = new DefaultComboBoxModel();
@@ -34,6 +35,7 @@ public class Materia extends javax.swing.JFrame {
         cargarProfesores();
         cargarCarreras();
         cargarTablaMaterias();
+        this.setLocationRelativeTo(null);
     }
 
     /**
