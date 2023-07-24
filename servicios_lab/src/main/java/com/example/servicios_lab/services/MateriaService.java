@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,5 +28,31 @@ public class MateriaService {
         List<MateriaModel> materias = entityManager.createQuery(jpql).getResultList();
 
         return materias;
+    }
+
+    // Método para obtener una materia por su ID
+    public MateriaModel getMateriaById(int id) {
+        return entityManager.find(MateriaModel.class, id);
+    }
+
+    // Método para crear una nueva materia
+    @Transactional
+    public void crearMateria(MateriaModel materia) {
+        entityManager.persist(materia);
+    }
+
+    // Método para actualizar una materia existente
+    @Transactional
+    public void actualizarMateria(MateriaModel materia) {
+        entityManager.merge(materia);
+    }
+
+    // Método para eliminar una materia por su ID
+    @Transactional
+    public void eliminarMateria(int id) {
+        MateriaModel materia = entityManager.find(MateriaModel.class, id);
+        if (materia != null) {
+            entityManager.remove(materia);
+        }
     }
 }
