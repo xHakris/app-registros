@@ -38,8 +38,8 @@ public class MateriaServlet extends HttpServlet {
 
             while (resultSet.next()) {
                 Materia materia = new Materia();
-                materia.setIdMateria(resultSet.getInt("idMateria"));
-                materia.setNombreMateria(resultSet.getString("nombreMateria"));
+                materia.setIdMateria(resultSet.getInt("id"));
+                materia.setNombreMateria(resultSet.getString("nombre"));
 
                 int docenteID = resultSet.getInt("docenteID");
                 Docente docente = obtenerDocentePorID(docenteID);
