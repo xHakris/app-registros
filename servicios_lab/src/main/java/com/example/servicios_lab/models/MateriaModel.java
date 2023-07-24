@@ -10,10 +10,13 @@ public class MateriaModel {
     private int id;
     @Column
     private String nombre;
-    @Column
-    private int docenteID;
-    @Column
-    private int carreraID;
+    @ManyToOne
+    @JoinColumn(name = "docenteID")
+    private DocenteModel docente;
+
+    @ManyToOne
+    @JoinColumn(name = "carreraID")
+    private CarreraModel carrera;
 
     public int getId() {
         return id;
@@ -31,19 +34,19 @@ public class MateriaModel {
         this.nombre = nombre;
     }
 
-    public int getDocenteID() {
-        return docenteID;
+    public DocenteModel getDocente() {
+        return docente;
     }
 
-    public void setDocenteID(int docenteID) {
-        this.docenteID = docenteID;
+    public void setDocente(DocenteModel docente) {
+        this.docente = docente;
     }
 
-    public int getCarreraID() {
-        return carreraID;
+    public CarreraModel getCarrera() {
+        return carrera;
     }
 
-    public void setCarreraID(int carreraID) {
-        this.carreraID = carreraID;
+    public void setCarrera(CarreraModel carrera) {
+        this.carrera = carrera;
     }
 }
