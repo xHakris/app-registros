@@ -13,26 +13,28 @@ import java.util.List;
 @RestController
 @RequestMapping("/materia")
 public class MateriaController {
+    private final MateriaService materiaService;
 
     @Autowired
-    private MateriaService materiaService;
+    public MateriaController(MateriaService materiaService) {
+        this.materiaService = materiaService;
+    }
 
     @GetMapping("/obtenerMaterias")
-    public List<MateriaModel> getMaterias() {
-        return this.materiaService.getMaterias();
+    public List<MateriaModel> obtenerTodasLasMaterias() {
+        return materiaService.obtenerTodasLasMaterias();
     }
 
     // Ruta para obtener una materia por su ID
     @GetMapping("/{id}")
-    public MateriaModel getMateriaById(@PathVariable int id) {
-        return this.materiaService.getMateriaById(id);
+    public MateriaModel obtenerMateriaPorId(@PathVariable Long id) {
+        return materiaService.obtenerMateriaPorId(id);
     }
 
     // Ruta para crear una nueva materia
-    @PostMapping("/crearMateria")
-    public ResponseEntity<String> crearMateria(@RequestBody MateriaModel materia) {
-        this.materiaService.crearMateria(materia);
-        return ResponseEntity.ok("Materia creada exitosamente");
+    @PostMapping("/guardar")
+    public MateriaModel crearMateria(@RequestBody MateriaModel materia) {
+        return this.materiaService.crearMateria(materia);
     }
 
     // Ruta para actualizar una materia existente
@@ -44,7 +46,7 @@ public class MateriaController {
 
     // Ruta para eliminar una materia por su ID
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> eliminarMateria(@PathVariable int id) {
+    public ResponseEntity<String> eliminarMateria(@PathVariable Long id) {
         this.materiaService.eliminarMateria(id);
         return ResponseEntity.ok("Materia eliminada exitosamente");
     }

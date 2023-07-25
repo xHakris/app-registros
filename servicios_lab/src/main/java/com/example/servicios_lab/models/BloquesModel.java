@@ -8,7 +8,7 @@ import java.util.Stack;
 @Table(name = "bloques")
 public class BloquesModel {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column
     private String nombre;

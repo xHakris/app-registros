@@ -6,23 +6,20 @@ import javax.persistence.*;
 @Table(name = "materia")
 public class MateriaModel {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @Column
     private String nombre;
-    @ManyToOne
-    @JoinColumn(name = "docenteID")
-    private DocenteModel docente;
+    @Column
+    private int docenteID;
+    @Column
+    private int carreraID;
 
-    @ManyToOne
-    @JoinColumn(name = "carreraID")
-    private CarreraModel carrera;
-
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -34,19 +31,19 @@ public class MateriaModel {
         this.nombre = nombre;
     }
 
-    public DocenteModel getDocente() {
-        return docente;
+    public int getDocenteID() {
+        return docenteID;
     }
 
-    public void setDocente(DocenteModel docente) {
-        this.docente = docente;
+    public void setDocenteID(int docenteID) {
+        this.docenteID = docenteID;
     }
 
-    public CarreraModel getCarrera() {
-        return carrera;
+    public int getCarreraID() {
+        return carreraID;
     }
 
-    public void setCarrera(CarreraModel carrera) {
-        this.carrera = carrera;
+    public void setCarreraID(int carreraID) {
+        this.carreraID = carreraID;
     }
 }

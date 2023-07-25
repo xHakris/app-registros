@@ -11,48 +11,43 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MateriaService {
 
-    @PersistenceContext
-    private EntityManager entityManager;
+    @Autowired
+    private IMateriaRepository materiaRepository;
+    public MateriaService(IMateriaRepository materiaRepository) {
+        this.materiaRepository = materiaRepository;
+    }
 
-    public List<MateriaModel> getMaterias() {
-        // Utilizamos JPQL para hacer la consulta a la base de datos
-        String jpql = "SELECT m.id, m.nombre, d.nombre, c.nombre " +
-                "FROM MateriaModel m " +
-                "LEFT JOIN m.docente d " +
-                "LEFT JOIN m.carrera c";
-
-        List<MateriaModel> materias = entityManager.createQuery(jpql).getResultList();
-
-        return materias;
+    // Método para obtener todas las materias
+    public List<MateriaModel> obtenerTodasLasMaterias() {
+        return materiaRepository.findAll();
     }
 
     // Método para obtener una materia por su ID
-    public MateriaModel getMateriaById(int id) {
-        return entityManager.find(MateriaModel.class, id);
+    public MateriaModel obtenerMateriaPorId(Long id) {
+        Optional<MateriaModel> optionalMateria = materiaRepository.findById(id);
+        return optionalMateria.orElse(null);
     }
 
     // Método para crear una nueva materia
-    @Transactional
-    public void crearMateria(MateriaModel materia) {
-        entityManager.persist(materia);
+
+    public MateriaModel crearMateria(MateriaModel materiaModel) {
+        return materiaRepository.save(materiaModel);
     }
 
     // Método para actualizar una materia existente
     @Transactional
     public void actualizarMateria(MateriaModel materia) {
-        entityManager.merge(materia);
+        materiaRepository.save(materia);
     }
 
     // Método para eliminar una materia por su ID
     @Transactional
-    public void eliminarMateria(int id) {
-        MateriaModel materia = entityManager.find(MateriaModel.class, id);
-        if (materia != null) {
-            entityManager.remove(materia);
-        }
+    public void eliminarMateria(Long id) {
+        materiaRepository.deleteById(id);
     }
 }
