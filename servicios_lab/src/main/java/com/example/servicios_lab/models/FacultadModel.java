@@ -7,17 +7,17 @@ import javax.persistence.*;
 public class FacultadModel {
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     @Column
     private String abreviatura;
     @Column
     private String nombre;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
