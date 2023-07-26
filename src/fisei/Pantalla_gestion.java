@@ -35,7 +35,7 @@ public Pantalla_gestion() {
     this.setLocationRelativeTo(null);
     cargarReportes();
     setFechas();
-    cargarTablaReportes();
+    cargarTablaReportes("");
 }
 
 /**
@@ -56,8 +56,8 @@ public Pantalla_gestion() {
         fecha = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        bloqueCond = new javax.swing.JComboBox<>();
+        jornadaCond = new javax.swing.JComboBox<>();
         dia = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -65,7 +65,7 @@ public Pantalla_gestion() {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        nivelCond = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -107,9 +107,19 @@ public Pantalla_gestion() {
 
         jLabel5.setText("Reportes del dia");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ninguno", "Bloque 1", "Bloque 2" }));
+        bloqueCond.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ninguno", "Bloque 1", "Bloque 2" }));
+        bloqueCond.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                bloqueCondItemStateChanged(evt);
+            }
+        });
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Niguno", "Mañana", "Tarde" }));
+        jornadaCond.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Niguno", "Mañana", "Tarde" }));
+        jornadaCond.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jornadaCondItemStateChanged(evt);
+            }
+        });
 
         dia.setText("LUNES");
 
@@ -125,7 +135,12 @@ public Pantalla_gestion() {
 
         jButton5.setText("Reporte Diario");
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ninguno", "1", "2", "3", "4", "5", "6", "7", "8", "9" }));
+        nivelCond.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ninguno", "1", "2", "3", "4", "5", "6", "7", "8", "9" }));
+        nivelCond.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                nivelCondItemStateChanged(evt);
+            }
+        });
 
         jLabel8.setText("Nivel");
 
@@ -166,7 +181,7 @@ public Pantalla_gestion() {
                         .addComponent(jLabel3)
                         .addGap(41, 41, 41)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(bloqueCond, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6))
                         .addGap(42, 42, 42)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,9 +190,9 @@ public Pantalla_gestion() {
                                 .addGap(59, 59, 59)
                                 .addComponent(jLabel8))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jornadaCond, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(nivelCond, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(31, 31, 31)
                                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -212,12 +227,12 @@ public Pantalla_gestion() {
                     .addComponent(jLabel8))
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bloqueCond, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jornadaCond, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(jButton4)
                     .addComponent(jButton5)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nivelCond, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24))
@@ -238,6 +253,18 @@ public Pantalla_gestion() {
         m.show();
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void bloqueCondItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_bloqueCondItemStateChanged
+        cambiarBloque(bloqueCond.getSelectedItem().toString());
+    }//GEN-LAST:event_bloqueCondItemStateChanged
+
+    private void jornadaCondItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jornadaCondItemStateChanged
+        cambiarJornada(jornadaCond.getSelectedItem().toString());
+    }//GEN-LAST:event_jornadaCondItemStateChanged
+
+    private void nivelCondItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_nivelCondItemStateChanged
+        cambiarNivel(nivelCond.getSelectedItem().toString());
+    }//GEN-LAST:event_nivelCondItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -275,6 +302,7 @@ public Pantalla_gestion() {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> bloqueCond;
     private javax.swing.JLabel dia;
     private javax.swing.JLabel fecha;
     private javax.swing.JButton jButton1;
@@ -282,9 +310,6 @@ public Pantalla_gestion() {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -294,6 +319,8 @@ public Pantalla_gestion() {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JComboBox<String> jornadaCond;
+    private javax.swing.JComboBox<String> nivelCond;
     private javax.swing.JTable reportes;
     // End of variables declaration//GEN-END:variables
 
@@ -316,12 +343,12 @@ public Pantalla_gestion() {
         
     }
     
-    public void cargarTablaReportes() {
+    public void cargarTablaReportes(String condicional) {
         try {
-            String[] titulos = {"#", "Laboratorio","Docente","Materia","Nivel","Carrera","Facultad","H. Ingreso","H. Salida","Periodo académico"};
-            String[] materiasList = new String[10];
+            String[] titulos = {"#", "Laboratorio","Docente","Materia","Nivel","Carrera","Facultad","H. Ingreso","H. Salida","Periodo académico","Bloque"};
+            String[] materiasList = new String[11];
             modelo = new DefaultTableModel(null, titulos);
-            String sql = "SELECT r.id, l.nombre, d.nombre, m.nombre, m.nivel, c.nombre, f.abreviatura, h.horaEntrada, h.horaSalida "
+            String sql = "SELECT r.id, l.nombre, d.nombre, m.nombre, m.nivel, c.nombre, f.abreviatura, h.horaEntrada, h.horaSalida, b.nombre "
                     + "FROM reporte r "
                     + "JOIN materia m ON r.id_Materia = m.id "
                     + "JOIN horarios h ON r.id_Horario = h.id "
@@ -329,7 +356,8 @@ public Pantalla_gestion() {
                     + "JOIN docentes d ON m.docenteID = d.id "
                     + "JOIN carrera c ON m.carreraID = c.id "
                     + "JOIN bloques b ON c.bloqueID = b.id "
-                    + "JOIN facultades f ON b.facultadID = f.id ";
+                    + "JOIN facultades f ON b.facultadID = f.id "
+                    + condicional;
             Statement psd = cn.createStatement();
             ResultSet rs = psd.executeQuery(sql);
             while (rs.next()) {
@@ -343,11 +371,82 @@ public Pantalla_gestion() {
                 materiasList[7] = rs.getString("h.horaEntrada");
                 materiasList[8] = rs.getString("h.horaSalida");
                 materiasList[9] = "";
+                materiasList[10] = rs.getString("b.nombre");
                 modelo.addRow(materiasList);
             }
             reportes.setModel(modelo);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
+        }
+    }
+
+    private void cambiarBloque(String valor) {
+        if (!valor.equals("Ninguno")) {
+            switch (valor){
+                case "Bloque 1":
+                    cargarTablaReportes("WHERE b.nombre = 'Bloque 1'");
+                    break;
+                case "Bloque 2":
+                    cargarTablaReportes("WHERE b.nombre = 'Bloque 2'");
+                    break;
+                          
+            }
+        }else{
+            cargarTablaReportes("");
+        }
+    }
+    
+    private void cambiarJornada(String valor) {
+        if (!valor.equals("Ninguno")) {
+            switch (valor){
+                case "Mañana":
+                    cargarTablaReportes("WHERE m.nivel <= 13 ");
+                    break;
+                case "Tarde":
+                    cargarTablaReportes("WHERE m.nivel >= 13 ");
+                    break;
+                          
+            }
+        }else{
+            cargarTablaReportes("");
+        }
+    }
+    
+    private void cambiarNivel(String valor) {
+        if (!valor.equals("Ninguno")) {
+            switch (valor){
+                case "1":
+                    cargarTablaReportes("WHERE m.nivel = 1");
+                    break;
+                case "2":
+                    cargarTablaReportes("WHERE m.nivel = 2");
+                    break;
+                case "3":
+                    cargarTablaReportes("WHERE m.nivel = 3");
+                    break;
+                case "4":
+                    cargarTablaReportes("WHERE m.nivel = 4");
+                    break;
+                case "5":
+                    cargarTablaReportes("WHERE m.nivel = 5");
+                    break;
+                case "6":
+                    cargarTablaReportes("WHERE m.nivel = 6");
+                    break;
+                case "7":
+                    cargarTablaReportes("WHERE m.nivel = 7");
+                    break;
+                case "8":
+                    cargarTablaReportes("WHERE m.nivel = 8");
+                    break;
+                case "9":
+                    cargarTablaReportes("WHERE m.nivel = 9");
+                    break;
+                
+                          
+            }
+        }else{
+            cargarTablaReportes("");
         }
     }
 }
