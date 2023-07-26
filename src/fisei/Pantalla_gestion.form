@@ -25,7 +25,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane1" pref="1106" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" pref="1308" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
@@ -142,14 +142,16 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="jTable1">
+        <Component class="javax.swing.JTable" name="reportes">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="5" rowCount="4">
+              <Table columnCount="7" rowCount="4">
                 <Column editable="true" title="Laboratorio " type="java.lang.Object"/>
                 <Column editable="true" title="Docente" type="java.lang.Object"/>
                 <Column editable="true" title="Materia" type="java.lang.Object"/>
-                <Column editable="true" title="Horario" type="java.lang.Object"/>
+                <Column editable="true" title="Nivel" type="java.lang.Object"/>
+                <Column editable="true" title="Hora ingreso" type="java.lang.Object"/>
+                <Column editable="true" title="Hora salida" type="java.lang.Object"/>
                 <Column editable="true" title="Periodo academico" type="java.lang.Object"/>
               </Table>
             </Property>

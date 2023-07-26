@@ -5,9 +5,16 @@
 */
 package fisei;
 
+import bd.Conexion;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
 *
@@ -18,11 +25,17 @@ public class Pantalla_gestion extends javax.swing.JFrame {
 /**
  * Creates new form Pantalla_gestion
  */
+    
+    DefaultTableModel modelo = new DefaultTableModel();
+    Conexion cc = new Conexion();
+    Connection cn = cc.conectar();
+    
 public Pantalla_gestion() {
     initComponents();
     this.setLocationRelativeTo(null);
     cargarReportes();
     setFechas();
+    cargarTablaReportes();
 }
 
 /**
@@ -35,7 +48,7 @@ public Pantalla_gestion() {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        reportes = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -57,18 +70,18 @@ public Pantalla_gestion() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        reportes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Laboratorio ", "Docente", "Materia", "Horario", "Periodo academico"
+                "Laboratorio ", "Docente", "Materia", "Nivel", "Hora ingreso", "Hora salida", "Periodo academico"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(reportes);
 
         jButton1.setText("Editar Materias");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -122,7 +135,7 @@ public Pantalla_gestion() {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1106, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1308, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(459, 459, 459)
@@ -281,7 +294,7 @@ public Pantalla_gestion() {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable reportes;
     // End of variables declaration//GEN-END:variables
 
     private void cargarReportes() {
@@ -295,11 +308,46 @@ public Pantalla_gestion() {
  
         dia.setText(diaNow);//guardamos en el txt
         
-        DateFormat fec = new SimpleDateFormat("yyyy-M-d");//Formato de la fecha
+        DateFormat fec = new SimpleDateFormat("yyyy-MM-d");//Formato de la fecha
 
         String date = fec.format(new Date()).toUpperCase();
         
         fecha.setText(date);//guardamos en el txt
         
+    }
+    
+    public void cargarTablaReportes() {
+        try {
+            String[] titulos = {"#", "Laboratorio","Docente","Materia","Nivel","Carrera","Facultad","H. Ingreso","H. Salida","Periodo académico"};
+            String[] materiasList = new String[10];
+            modelo = new DefaultTableModel(null, titulos);
+            String sql = "SELECT r.id, l.nombre, d.nombre, m.nombre, m.nivel, c.nombre, f.abreviatura, h.horaEntrada, h.horaSalida "
+                    + "FROM reporte r "
+                    + "JOIN materia m ON r.id_Materia = m.id "
+                    + "JOIN horarios h ON r.id_Horario = h.id "
+                    + "JOIN laboratorios l ON r.id_Laboratorio = l.id "
+                    + "JOIN docentes d ON m.docenteID = d.id "
+                    + "JOIN carrera c ON m.carreraID = c.id "
+                    + "JOIN bloques b ON c.bloqueID = b.id "
+                    + "JOIN facultades f ON b.facultadID = f.id ";
+            Statement psd = cn.createStatement();
+            ResultSet rs = psd.executeQuery(sql);
+            while (rs.next()) {
+                materiasList[0] = rs.getString("r.id");
+                materiasList[1] = rs.getString("l.nombre");
+                materiasList[2] = rs.getString("d.nombre");
+                materiasList[3] = rs.getString("m.nombre");
+                materiasList[4] = rs.getString("m.nivel");
+                materiasList[5] = rs.getString("c.nombre");
+                materiasList[6] = rs.getString("f.abreviatura");
+                materiasList[7] = rs.getString("h.horaEntrada");
+                materiasList[8] = rs.getString("h.horaSalida");
+                materiasList[9] = "";
+                modelo.addRow(materiasList);
+            }
+            reportes.setModel(modelo);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
     }
 }
