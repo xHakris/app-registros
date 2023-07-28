@@ -9,44 +9,65 @@ public class ReporteModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long id_periodo;
-    private Long id_Horario;
-    private Long id_Laboratorio;
-    private Long id_Materia;
+
+    @ManyToOne
+    @JoinColumn(name = "id_periodo")
+    private PeriodoAcademicoModel periodo;
+
+    @ManyToOne
+    @JoinColumn(name = "id_Horario")
+    private HorarioModel horario;
+
+    @ManyToOne
+    @JoinColumn(name = "id_Laboratorio")
+    private LaboratorioModel laboratorio;
+
+    @ManyToOne
+    @JoinColumn(name = "id_Materia")
+    private MateriaModel materia;
+
+    @ManyToOne
+    @JoinColumn(name = "id_paralelo")
+    private ParaleloModel paralelo;
+
     private String auxiliar;
     private Date fecha;
-    private Long id_paralelo;
 
-    
     public Long getId() {
         return id;
     }
     public void setId(Long id) {
         this.id = id;
     }
-    public Long getId_periodo() {
-        return id_periodo;
+    public PeriodoAcademicoModel getPeriodo() {
+        return periodo;
     }
-    public void setId_periodo(Long id_periodo) {
-        this.id_periodo = id_periodo;
+    public void setPeriodo(PeriodoAcademicoModel periodo) {
+        this.periodo = periodo;
     }
-    public Long getId_Horario() {
-        return id_Horario;
+    public HorarioModel getHorario() {
+        return horario;
     }
-    public void setId_Horario(Long id_Horario) {
-        this.id_Horario = id_Horario;
+    public void setHorario(HorarioModel horario) {
+        this.horario = horario;
     }
-    public Long getId_Laboratorio() {
-        return id_Laboratorio;
+    public LaboratorioModel getLaboratorio() {
+        return laboratorio;
     }
-    public void setId_Laboratorio(Long id_Laboratorio) {
-        this.id_Laboratorio = id_Laboratorio;
+    public void setLaboratorio(LaboratorioModel laboratorio) {
+        this.laboratorio = laboratorio;
     }
-    public Long getId_Materia() {
-        return id_Materia;
+    public MateriaModel getMateria() {
+        return materia;
     }
-    public void setId_Materia(Long id_Materia) {
-        this.id_Materia = id_Materia;
+    public void setMateria(MateriaModel materia) {
+        this.materia = materia;
+    }
+    public ParaleloModel getParalelo() {
+        return paralelo;
+    }
+    public void setParalelo(ParaleloModel paralelo) {
+        this.paralelo = paralelo;
     }
     public String getAuxiliar() {
         return auxiliar;
@@ -60,11 +81,6 @@ public class ReporteModel {
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
-    public Long getId_paralelo() {
-        return id_paralelo;
-    }
-    public void setId_paralelo(Long id_paralelo) {
-        this.id_paralelo = id_paralelo;
-    }
+
 
 }

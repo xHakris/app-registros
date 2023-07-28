@@ -1,49 +1,52 @@
 package com.example.servicios_lab.controllers;
 
-
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
 import com.example.servicios_lab.models.HorarioModel;
 import com.example.servicios_lab.services.HorarioService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
-@RestController
+
+@Controller
 @RequestMapping("/horarios")
 public class HorarioController {
-    private final HorarioService registroHorasService;
+    private final HorarioService horarioService;
 
-    @Autowired
-    public HorarioController(HorarioService registroHorasService) {
-        this.registroHorasService = registroHorasService;
-    }
+   @Autowired
+   public HorarioController(HorarioService horarioService) {
+       this.horarioService = horarioService;
+   }
 
-    @GetMapping("/obtenerHorarios")
-    public List<HorarioModel> getAllRegistros() {
-        return registroHorasService.getAllRegistros();
-    }
+   @GetMapping("")
+   public String listarHorarios(Model model) {
+       model.addAttribute("horarios", horarioService.listarHorarios());
+       return "horarios/lista"; // Vista que muestra la lista de horarios
+   }
 
-    @GetMapping("/obtenerHorario/{id}")
-    public HorarioModel getRegistroById(@PathVariable Long id) {
-        return registroHorasService.getRegistroById(id);
-    }
+   @GetMapping("/{id}")
+   public String verHorario(@PathVariable Long id, Model model) {
+       HorarioModel horario = horarioService.obtenerHorarioPorId(id);
+       model.addAttribute("horario", horario);
+       return "horarios/detalle"; // Vista que muestra los detalles de un horario específico
+   }
 
-    @PostMapping("crearHorario")
-    public HorarioModel createRegistro(@RequestBody HorarioModel registro) {
-        return registroHorasService.createRegistro(registro);
-    }
+   @PostMapping("")
+   public String crearHorario(@ModelAttribute HorarioModel horario) {
+       horarioService.crearHorario(horario);
+       return "redirect:/horarios";
+   }
 
-    @PutMapping("/editarHorario/{id}")
-    public HorarioModel updateRegistro(@PathVariable Long id, @RequestBody HorarioModel registro) {
-        return registroHorasService.updateRegistro(id, registro);
-    }
+   @PutMapping("/{id}")
+   public String actualizarHorario(@PathVariable Long id, @ModelAttribute HorarioModel horario) {
+       horario.setId(id);
+       horarioService.actualizarHorario(horario);
+       return "redirect:/horarios";
+   }
 
-    @DeleteMapping("/eliminarHorario/{id}")
-    public ResponseEntity<String> deleteRegistro(@PathVariable Long id) {
-        registroHorasService.deleteRegistro(id);
-        return ResponseEntity.ok("Registro eliminado correctamente");
-    }
+   @DeleteMapping("/{id}")
+   public String eliminarHorario(@PathVariable Long id) {
+       horarioService.eliminarHorario(id);
+       return "redirect:/horarios";
+   }
 }
