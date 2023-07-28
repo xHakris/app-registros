@@ -29,6 +29,13 @@ public class ReporteController {
     public List<ReporteModel> getAllReportes() {
         return reporteService.getReportesInfo();
     }
+
+    //filtrado por materia
+
+    @GetMapping("/reportes-por-materia")
+    public List<ReporteModel> getReportesByMateria(@RequestParam("nombreMateria") String nombreMateria) {
+        return reporteService.getReportesByMateria(nombreMateria);
+    }
 }
 
 
