@@ -6,6 +6,7 @@
 package fisei;
 
 import bd.Cliente;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,7 +28,8 @@ import org.json.JSONObject;
  * @author User
  */
 public class Horario extends javax.swing.JFrame {
-    
+    Conexion cn = new Conexion();
+    Connection cc = cn.conectar();
     DefaultTableModel modelo = new DefaultTableModel();
     String[] idsHorarios, horasEntrada, horasSalida;
     DefaultComboBoxModel horarioModel = new DefaultComboBoxModel();
@@ -250,25 +252,25 @@ public class Horario extends javax.swing.JFrame {
     }
 
     private void agregarHorario() {
-        
-        JSONObject postData = new JSONObject();
-        postData.put("nombre", Integer.valueOf(horaEntrada.getSelectedItem().toString()));
-        postData.put("horaEntrada", devolverIdDocente(String.valueOf(docente.getSelectedItem())));
-        postData.put("horaSalida", devolverIdCarrera(String.valueOf(carrera.getSelectedItem())));
-        postData.put("dia", nivel.getSelectedItem());
-
-        RequestBody requestbody = RequestBody.create(JSON, postData.toString());
-
-        boolean respuesta = cliente.post("http://localhost:8080/horario/guardar", requestbody);
-
-        if (respuesta) {
-            JOptionPane.showMessageDialog(null, "Se ha agregado la materia\n'" + nombreMateria.getText() + "'\ncorrectamente");
-            cargarTablaMaterias();
-            BorrarTxt();
-        } else {
-            JOptionPane.showMessageDialog(null, "Error al guardar la materia");
-        }
-        /////////////////
+//        
+//        JSONObject postData = new JSONObject();
+//        postData.put("nombre", Integer.valueOf(horaEntrada.getSelectedItem().toString()));
+//        postData.put("horaEntrada", devolverIdDocente(String.valueOf(docente.getSelectedItem())));
+//        postData.put("horaSalida", devolverIdCarrera(String.valueOf(carrera.getSelectedItem())));
+//        postData.put("dia", nivel.getSelectedItem());
+//
+//        RequestBody requestbody = RequestBody.create(JSON, postData.toString());
+//
+//        boolean respuesta = cliente.post("http://localhost:8080/horario/guardar", requestbody);
+//
+//        if (respuesta) {
+//            JOptionPane.showMessageDialog(null, "Se ha agregado la materia\n'" + nombreMateria.getText() + "'\ncorrectamente");
+//            cargarTablaMaterias();
+//            BorrarTxt();
+//        } else {
+//            JOptionPane.showMessageDialog(null, "Error al guardar la materia");
+//        }
+//        /////////////////
         try {
             String sql = "insert into horarios values(?,?,?,?)";
             PreparedStatement psd = cn.prepareStatement(sql);

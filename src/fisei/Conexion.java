@@ -7,6 +7,7 @@ package fisei;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
 
 /**
@@ -25,5 +26,9 @@ class Conexion {
             JOptionPane.showMessageDialog(null, "Error..."+ex);
         }
         return connect;
+    }
+
+    PreparedStatement prepareStatement(String sql) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

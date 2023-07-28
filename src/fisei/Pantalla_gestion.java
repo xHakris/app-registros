@@ -50,7 +50,6 @@ public class Pantalla_gestion extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         fecha = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         bloqueCond = new javax.swing.JComboBox<>();
         jornadaCond = new javax.swing.JComboBox<>();
         dia = new javax.swing.JLabel();
@@ -66,7 +65,9 @@ public class Pantalla_gestion extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        reportes.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         reportes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
@@ -80,178 +81,125 @@ public class Pantalla_gestion extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(reportes);
 
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 321, 1470, 500));
+
+        jButton1.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jButton1.setText("Editar Materias");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 260, -1, 40));
 
+        jButton2.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jButton2.setText("Editar Horarios");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 260, -1, 40));
 
+        periodo.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         periodo.setText("Periodo 2023 Abril - Septiembre 2023");
+        getContentPane().add(periodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 110, -1, -1));
 
+        jLabel2.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         jLabel2.setText("Fecha actual:");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 150, -1, -1));
 
+        fecha.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         fecha.setText("24-07-2023");
+        getContentPane().add(fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(1220, 150, -1, -1));
 
+        jLabel4.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabel4.setText("FACULTAD DE INGENIERIA EN SISTEMAS, ELECTRONICA E INDUSTRIAL");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 0, -1, -1));
 
-        jLabel5.setText("Reportes del dia");
-
+        bloqueCond.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         bloqueCond.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ninguno", "Bloque 1", "Bloque 2" }));
         bloqueCond.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 bloqueCondItemStateChanged(evt);
             }
         });
+        getContentPane().add(bloqueCond, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 210, 80, -1));
 
+        jornadaCond.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jornadaCond.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Niguno", "Mañana", "Tarde" }));
         jornadaCond.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jornadaCondItemStateChanged(evt);
             }
         });
+        getContentPane().add(jornadaCond, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 210, 70, -1));
 
-        dia.setText("LUNES");
+        dia.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+        dia.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        dia.setText("Reporte del dia LUNES");
+        getContentPane().add(dia, new org.netbeans.lib.awtextra.AbsoluteConstraints(558, 60, 360, -1));
 
+        jLabel3.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel3.setText("Filtrar por");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, -1, -1));
 
+        jLabel6.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel6.setText("Bloque");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 180, 50, -1));
 
+        jLabel7.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel7.setText("Jornada");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 180, -1, -1));
 
+        jButton3.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jButton3.setText("Editar Docentes");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 260, -1, 40));
 
-        reporteClick.setText("Reporte Seleccionado");
+        reporteClick.setBackground(new java.awt.Color(204, 255, 204));
+        reporteClick.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        reporteClick.setText("Generar Reporte Seleccionado");
+        reporteClick.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reporteClickActionPerformed(evt);
+            }
+        });
+        getContentPane().add(reporteClick, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 260, 240, 40));
 
-        jButton5.setText("Reporte Diario");
+        jButton5.setBackground(new java.awt.Color(204, 255, 204));
+        jButton5.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jButton5.setText("Generar Reportes");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
             }
         });
+        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 260, 170, 40));
 
+        nivelCond.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         nivelCond.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ninguno", "1", "2", "3", "4", "5", "6", "7", "8", "9" }));
         nivelCond.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 nivelCondItemStateChanged(evt);
             }
         });
+        getContentPane().add(nivelCond, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 210, 80, -1));
 
+        jLabel8.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel8.setText("Nivel");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 180, -1, -1));
 
+        auxiliar.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        getContentPane().add(auxiliar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 140, 310, -1));
+
+        jLabel9.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel9.setText("Nombre del Auxiliar*");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1308, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(459, 459, 459)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(dia)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton3)
-                .addGap(164, 164, 164))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(18, 18, 18)
-                .addComponent(jButton2)
-                .addGap(104, 104, 104))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(fecha))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(354, 354, 354)
-                        .addComponent(jLabel4))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(217, 217, 217)
-                        .addComponent(jLabel3)
-                        .addGap(41, 41, 41)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(bloqueCond, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))
-                        .addGap(42, 42, 42)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jornadaCond, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(nivelCond, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(31, 31, 31)
-                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addGap(59, 59, 59)
-                                .addComponent(jLabel8)))
-                        .addGap(47, 47, 47)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9)
-                            .addComponent(auxiliar, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 141, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(reporteClick)
-                    .addComponent(periodo))
-                .addGap(121, 121, 121))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(jLabel4)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(dia)
-                    .addComponent(jButton3))
-                .addGap(7, 7, 7)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(periodo)
-                    .addComponent(jLabel2)
-                    .addComponent(fecha))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel9))
-                .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bloqueCond, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jornadaCond, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(reporteClick)
-                    .addComponent(jButton5)
-                    .addComponent(nivelCond, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(auxiliar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
-        );
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -333,6 +281,8 @@ public class Pantalla_gestion extends javax.swing.JFrame {
                 parametros.put("salida2", salida2);
                 parametros.put("materia1", materia1);
                 parametros.put("materia2", materia2);
+                parametros.put("paralelo1", paralelo1);
+                parametros.put("paralelo1", paralelo2);
 
                 String path = "C:\\Users\\User\\Documents\\NetBeansProjects\\RegistroPracticas\\src\\reporte\\Plantilla.jrxml";
                 JasperReport reporte = JasperCompileManager.compileReport(path);
@@ -345,6 +295,10 @@ public class Pantalla_gestion extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void reporteClickActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reporteClickActionPerformed
+        imprimirSolo();
+    }//GEN-LAST:event_reporteClickActionPerformed
 
     /**
      * @param args the command line arguments
@@ -393,7 +347,6 @@ public class Pantalla_gestion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -415,7 +368,7 @@ public class Pantalla_gestion extends javax.swing.JFrame {
 
         String diaNow = dateFormat.format(new Date()).toUpperCase();
 
-        dia.setText(diaNow);//guardamos en el txt
+        dia.setText("Reporte del día "+diaNow);//guardamos en el txt
 
         DateFormat fec = new SimpleDateFormat("yyyy-MM-d");//Formato de la fecha
 
@@ -457,7 +410,7 @@ public class Pantalla_gestion extends javax.swing.JFrame {
                 materiasList[7] = rs.getString("f.abreviatura");
                 materiasList[8] = rs.getString("h.horaEntrada");
                 materiasList[9] = rs.getString("h.horaSalida");
-                materiasList[10] = "";
+                materiasList[10] = periodo.getText();
                 materiasList[11] = rs.getString("b.nombre");
                 modelo.addRow(materiasList);
             }
@@ -579,6 +532,38 @@ public class Pantalla_gestion extends javax.swing.JFrame {
             parametros.put("salida2", auxiliar.getText());
             parametros.put("materia1", auxiliar.getText());
             parametros.put("materia2", auxiliar.getText());
+
+            String path = "C:\\Users\\User\\Documents\\NetBeansProjects\\RegistroPracticas\\src\\reporte\\Plantilla.jrxml";
+            JasperReport reporte = JasperCompileManager.compileReport(path);
+            JasperPrint print = JasperFillManager.fillReport(reporte, parametros, cc.conectar());
+            JasperViewer.viewReport(print, false);
+        } catch (JRException ex) {
+            JOptionPane.showMessageDialog(null, "No se puede sacar el reporte, " + ex);
+        }
+    }
+    
+    private void imprimirSolo() {
+        try {
+            Map parametros = new HashMap();
+            parametros.put("fecha", fecha.getText());
+            parametros.put("auxiliar", auxiliar.getText());
+            parametros.put("periodo", periodo.getText());
+            parametros.put("carrera", carrera1);
+            parametros.put("carrera2", "");
+            parametros.put("lab1", lab1);
+            parametros.put("lab2", "");
+            parametros.put("docente1", docente1);
+            parametros.put("docente2", "");
+            parametros.put("nivel1", nivel1);
+            parametros.put("nivel2", "");
+            parametros.put("ingreso1", ingreso1);
+            parametros.put("ingreso2", "");
+            parametros.put("salida1", salida1);
+            parametros.put("salida2", "");
+            parametros.put("materia1", materia1);
+            parametros.put("materia2", "");
+            parametros.put("paralelo1", paralelo1);
+            parametros.put("paralelo2", "");
 
             String path = "C:\\Users\\User\\Documents\\NetBeansProjects\\RegistroPracticas\\src\\reporte\\Plantilla.jrxml";
             JasperReport reporte = JasperCompileManager.compileReport(path);
