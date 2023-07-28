@@ -49,8 +49,8 @@ public class ReporteService {
             reporte.setPeriodo(periodo);
 
             HorarioModel horario = new HorarioModel();
-            //horario.setHoraEntrada(rs.getString("horaEntrada"));
-            // horario.setHoraSalida(rs.getString("horaSalida"));
+            horario.setHoraEntrada(rs.getString("horaEntrada"));
+            horario.setHoraSalida(rs.getString("horaSalida"));
             reporte.setHorario(horario);
 
             LaboratorioModel laboratorio = new LaboratorioModel();
