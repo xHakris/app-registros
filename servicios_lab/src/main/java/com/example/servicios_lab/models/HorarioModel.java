@@ -1,51 +1,50 @@
 package com.example.servicios_lab.models;
 
 import javax.persistence.*;
-import java.util.Date;
+
+
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "horarios")
 public class HorarioModel {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    @Column
-    private Date horaEntrada;
-    @Column
-    private Date horaSalida;
-    @Column
-    private String dia;
+   @Id
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
+   private Long id;
+   
+   @Column(name = "horaEntrada")
+   private String horaEntrada;
+   @Column(name = "horaSalida")
+   private String horaSalida;
+   @Column(name = "dia")
+   private String dia;
 
-    public int getId() {
-        return id;
-    }
+public Long getId() {
+    return id;
+}
+public void setId(Long id) {
+    this.id = id;
+}
+public String getHoraEntrada() {
+    return horaEntrada;
+}
+public void setHoraEntrada(String horaEntrada) {
+    this.horaEntrada = horaEntrada;
+}
+public String getHoraSalida() {
+    return horaSalida;
+}
+public void setHoraSalida(String horaSalida) {
+    this.horaSalida = horaSalida;
+}
+public String getDia() {
+    return dia;
+}
+public void setDia(String dia) {
+    this.dia = dia;
+}
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Date getHoraEntrada() {
-        return horaEntrada;
-    }
-
-    public void setHoraEntrada(Date horaEntrada) {
-        this.horaEntrada = horaEntrada;
-    }
-
-    public Date getHoraSalida() {
-        return horaSalida;
-    }
-
-    public void setHoraSalida(Date horaSalida) {
-        this.horaSalida = horaSalida;
-    }
-
-    public String getDia() {
-        return dia;
-    }
-
-    public void setDia(String dia) {
-        this.dia = dia;
-    }
+    
 }

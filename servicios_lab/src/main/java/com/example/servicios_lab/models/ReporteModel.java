@@ -67,6 +67,4 @@ public class ReporteModel {
         this.id_paralelo = id_paralelo;
     }
 
-
-    
 }

@@ -3,7 +3,9 @@ package com.example.servicios_lab.DTO;
 import java.sql.Time;
 
 public class ReporteDTO {
+   
     private Long reporteId;
+
     private String nombreLaboratorio;
     private String nombreDocente;
     private String nombreMateria;
@@ -14,7 +16,9 @@ public class ReporteDTO {
     private Time horaSalida;
     private String nombreBloque;
 
-    public ReporteDTO(Long reporteId, String nombreLaboratorio, String nombreDocente, String nombreMateria, String nivelMateria, String nombreCarrera, String abreviaturaFacultad, Time horaEntrada, Time horaSalida, String nombreBloque) {
+    public ReporteDTO(Long reporteId, String nombreLaboratorio, String nombreDocente, String nombreMateria, 
+                      String nivelMateria, String nombreCarrera, String abreviaturaFacultad, Time horaEntrada, 
+                      Time horaSalida, String nombreBloque) {
         this.reporteId = reporteId;
         this.nombreLaboratorio = nombreLaboratorio;
         this.nombreDocente = nombreDocente;
@@ -107,8 +111,4 @@ public class ReporteDTO {
         this.nombreBloque = nombreBloque;
     }
 
-    
-
-
-    
 }
