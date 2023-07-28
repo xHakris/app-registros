@@ -2,7 +2,7 @@ package com.example.servicios_lab.models;
 
 import javax.persistence.*;
 
-
+import java.sql.Date;
 import java.time.LocalDate;
 
 @Entity
@@ -16,7 +16,6 @@ public class PeriodoAcademicoModel {
     private String inicioPeriodo;
     @Column
     private  String finPeriodo;
-
     public Long getId() {
         return id;
     }
@@ -35,5 +34,7 @@ public class PeriodoAcademicoModel {
     public void setFinPeriodo(String finPeriodo) {
         this.finPeriodo = finPeriodo;
     }
+
+    
     
 }

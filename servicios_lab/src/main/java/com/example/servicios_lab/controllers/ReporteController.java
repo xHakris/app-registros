@@ -18,26 +18,16 @@ import com.example.servicios_lab.services.ReporteService;
 @RestController
 @RequestMapping("/reporte")
 public class ReporteController {
-    @PersistenceContext
-    private EntityManager entityManager;
+    private final ReporteService reporteService;
+
+    @Autowired
+    public ReporteController(ReporteService reporteService) {
+        this.reporteService = reporteService;
+    }
 
     @GetMapping
     public List<ReporteModel> getAllReportes() {
-        String jpql = "SELECT r.id, r.auxiliar, r.fecha, " +
-                "p.inicioPeriodo, p.finPeriodo, " +
-                "h.horaEntrada, h.horaSalida, " +
-                "l.nombre, " +
-                "m.nombre, " +
-                "pa.nombre " +
-                "FROM ReporteModel r " +
-                "JOIN r.periodo p " +
-                "JOIN r.horario h " +
-                "JOIN r.laboratorio l " +
-                "JOIN r.materia m " +
-                "JOIN r.paralelo pa";
-
-        TypedQuery<ReporteModel> query = entityManager.createQuery(jpql, ReporteModel.class);
-        return query.getResultList();
+        return reporteService.getReportesInfo();
     }
 }
 
