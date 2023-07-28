@@ -36,7 +36,7 @@ public class DocenteController {
     }
 
     // Ruta para actualizar una materia existente
-    @PutMapping("/actualizarMateria")
+    @PutMapping("/actualizarDocente")
     public ResponseEntity<String> actualizarDocente(@RequestBody DocenteModel docenteModel) {
         this.docentesService.actualizarDocente(docenteModel);
         return ResponseEntity.ok("Docente actualizada exitosamente");

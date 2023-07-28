@@ -1,9 +1,7 @@
 package com.example.servicios_lab.controllers;
 
 import com.example.servicios_lab.models.CarreraModel;
-import com.example.servicios_lab.models.DocenteModel;
 import com.example.servicios_lab.services.CarreraService;
-import com.example.servicios_lab.services.DocentesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
