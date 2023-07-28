@@ -286,8 +286,22 @@ public class Pantalla_gestion extends javax.swing.JFrame {
         try {
             Map parametros = new HashMap();
             parametros.put("fecha", fecha.getText());
-            parametros.put("id_reporte", "1");
             parametros.put("auxiliar", auxiliar.getText());
+            parametros.put("periodo", auxiliar.getText());
+            parametros.put("carrera", auxiliar.getText());
+            parametros.put("carrera2", auxiliar.getText());
+            parametros.put("lab1", auxiliar.getText());
+            parametros.put("lab2", auxiliar.getText());
+            parametros.put("docente1", auxiliar.getText());
+            parametros.put("docente2", auxiliar.getText());
+            parametros.put("nivel1", auxiliar.getText());
+            parametros.put("nivel2", auxiliar.getText());
+            parametros.put("ingreso1", auxiliar.getText());
+            parametros.put("ingreso2", auxiliar.getText());
+            parametros.put("salida1", auxiliar.getText());
+            parametros.put("salida2", auxiliar.getText());
+            parametros.put("materia1", auxiliar.getText());
+            parametros.put("materia2", auxiliar.getText());
             
             String path ="C:\\Users\\User\\Documents\\NetBeansProjects\\RegistroPracticas\\src\\reporte\\Plantilla.jrxml";
              JasperReport reporte = JasperCompileManager.compileReport(path);
