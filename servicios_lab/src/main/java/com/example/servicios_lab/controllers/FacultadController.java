@@ -1,8 +1,6 @@
 package com.example.servicios_lab.controllers;
 
-import com.example.servicios_lab.models.BloquesModel;
 import com.example.servicios_lab.models.FacultadModel;
-import com.example.servicios_lab.services.BloqueService;
 import com.example.servicios_lab.services.FacultadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

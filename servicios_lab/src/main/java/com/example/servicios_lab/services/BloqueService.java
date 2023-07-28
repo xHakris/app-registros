@@ -1,9 +1,7 @@
 package com.example.servicios_lab.services;
 
 import com.example.servicios_lab.models.BloquesModel;
-import com.example.servicios_lab.models.CarreraModel;
 import com.example.servicios_lab.repositories.IBloqueRepository;
-import com.example.servicios_lab.repositories.ICarreraRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

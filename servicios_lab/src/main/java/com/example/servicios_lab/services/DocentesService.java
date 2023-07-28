@@ -1,7 +1,6 @@
 package com.example.servicios_lab.services;
 
 import com.example.servicios_lab.models.DocenteModel;
-import com.example.servicios_lab.models.MateriaModel;
 import com.example.servicios_lab.repositories.IDocentesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -2,7 +2,6 @@ package com.example.servicios_lab.models;
 
 
 import javax.persistence.*;
-import java.util.Stack;
 
 @Entity
 @Table(name = "bloques")
