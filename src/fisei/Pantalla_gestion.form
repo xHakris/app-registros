@@ -86,10 +86,10 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="168" max="32767" attributes="0"/>
+              <EmptySpace pref="141" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jButton4" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                  <Component id="reporteClick" min="-2" max="-2" attributes="0"/>
+                  <Component id="periodo" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="121" max="-2" attributes="0"/>
           </Group>
@@ -113,7 +113,7 @@
               </Group>
               <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="periodo" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="fecha" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -129,7 +129,7 @@
                   <Component id="bloqueCond" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jornadaCond" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton4" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="reporteClick" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButton5" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="nivelCond" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="auxiliar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -182,9 +182,9 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel1">
+    <Component class="javax.swing.JLabel" name="periodo">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Periodo 2023 Abril - Septiembre"/>
+        <Property name="text" type="java.lang.String" value="Periodo 2023 Abril - Septiembre 2023"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
@@ -269,7 +269,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton4">
+    <Component class="javax.swing.JButton" name="reporteClick">
       <Properties>
         <Property name="text" type="java.lang.String" value="Reporte Seleccionado"/>
       </Properties>

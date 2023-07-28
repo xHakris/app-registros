@@ -10,6 +10,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -23,13 +25,17 @@ public class Pantalla_gestion extends javax.swing.JFrame {
     DefaultTableModel modelo = new DefaultTableModel();
     Conexion cc = new Conexion();
     Connection cn = cc.conectar();
+    Integer fila, idActual;
+    String lab1, lab2, carrera1, carrera2, paralelo1, paralelo2, docente1, docente2, nivel1, nivel2, ingreso1, ingreso2, salida1, salida2, materia1, materia2;
 
     public Pantalla_gestion() {
         initComponents();
+        seleccionarMateria();
         this.setLocationRelativeTo(null);
         cargarReportes();
         setFechas();
         cargarTablaReportes("");
+        reporteClick.setEnabled(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -40,7 +46,7 @@ public class Pantalla_gestion extends javax.swing.JFrame {
         reportes = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        periodo = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         fecha = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -52,7 +58,7 @@ public class Pantalla_gestion extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        reporteClick = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         nivelCond = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
@@ -88,7 +94,7 @@ public class Pantalla_gestion extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Periodo 2023 Abril - Septiembre");
+        periodo.setText("Periodo 2023 Abril - Septiembre 2023");
 
         jLabel2.setText("Fecha actual:");
 
@@ -127,7 +133,7 @@ public class Pantalla_gestion extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setText("Reporte Seleccionado");
+        reporteClick.setText("Reporte Seleccionado");
 
         jButton5.setText("Reporte Diario");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -202,10 +208,10 @@ public class Pantalla_gestion extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9)
                             .addComponent(auxiliar, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 168, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 141, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton4)
-                    .addComponent(jLabel1))
+                    .addComponent(reporteClick)
+                    .addComponent(periodo))
                 .addGap(121, 121, 121))
         );
         layout.setVerticalGroup(
@@ -224,7 +230,7 @@ public class Pantalla_gestion extends javax.swing.JFrame {
                     .addComponent(jButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                    .addComponent(periodo)
                     .addComponent(jLabel2)
                     .addComponent(fecha))
                 .addGap(18, 18, 18)
@@ -238,7 +244,7 @@ public class Pantalla_gestion extends javax.swing.JFrame {
                     .addComponent(bloqueCond, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jornadaCond, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(jButton4)
+                    .addComponent(reporteClick)
                     .addComponent(jButton5)
                     .addComponent(nivelCond, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(auxiliar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -282,34 +288,63 @@ public class Pantalla_gestion extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        
-        try {
-            Map parametros = new HashMap();
-            parametros.put("fecha", fecha.getText());
-            parametros.put("auxiliar", auxiliar.getText());
-            parametros.put("periodo", auxiliar.getText());
-            parametros.put("carrera", auxiliar.getText());
-            parametros.put("carrera2", auxiliar.getText());
-            parametros.put("lab1", auxiliar.getText());
-            parametros.put("lab2", auxiliar.getText());
-            parametros.put("docente1", auxiliar.getText());
-            parametros.put("docente2", auxiliar.getText());
-            parametros.put("nivel1", auxiliar.getText());
-            parametros.put("nivel2", auxiliar.getText());
-            parametros.put("ingreso1", auxiliar.getText());
-            parametros.put("ingreso2", auxiliar.getText());
-            parametros.put("salida1", auxiliar.getText());
-            parametros.put("salida2", auxiliar.getText());
-            parametros.put("materia1", auxiliar.getText());
-            parametros.put("materia2", auxiliar.getText());
-            
-            String path ="C:\\Users\\User\\Documents\\NetBeansProjects\\RegistroPracticas\\src\\reporte\\Plantilla.jrxml";
-             JasperReport reporte = JasperCompileManager.compileReport(path);
-            JasperPrint print = JasperFillManager.fillReport(reporte,parametros, cc.conectar());
-            JasperViewer.viewReport(print,false);
-        } catch (JRException ex) {
-            JOptionPane.showMessageDialog(null, "No se puede sacar el reporte, "+ex);
+
+        for (int i = 0; i < reportes.getRowCount(); i++) {
+            if (i % 2 != 0) {
+                //pares
+                fila = reportes.getSelectedRow();
+                lab1 = reportes.getValueAt(fila, 1).toString();
+                docente1 = reportes.getValueAt(fila, 2).toString();
+                materia1 = reportes.getValueAt(fila, 3).toString();
+                paralelo1 = reportes.getValueAt(fila, 4).toString();
+                nivel1 = reportes.getValueAt(fila, 5).toString();
+                carrera1 = reportes.getValueAt(fila, 6).toString();
+                ingreso1 = reportes.getValueAt(fila, 8).toString();
+                salida1 = reportes.getValueAt(fila, 9).toString();
+                i++;
+            }
+            if(i % 2 == 0) {
+                //impares
+                fila = reportes.getSelectedRow();
+                lab2 = reportes.getValueAt(fila, 1).toString();
+                docente2 = reportes.getValueAt(fila, 2).toString();
+                materia2 = reportes.getValueAt(fila, 3).toString();
+                paralelo2 = reportes.getValueAt(fila, 4).toString();
+                nivel2 = reportes.getValueAt(fila, 5).toString();
+                carrera2 = reportes.getValueAt(fila, 6).toString();
+                ingreso2 = reportes.getValueAt(fila, 8).toString();
+                salida2 = reportes.getValueAt(fila, 9).toString();
+            }
+            try {
+                Map parametros = new HashMap();
+                parametros.put("fecha", fecha.getText());
+                parametros.put("auxiliar", auxiliar.getText());
+                parametros.put("periodo", periodo.getText());
+                parametros.put("carrera", carrera1);
+                parametros.put("carrera2", carrera2);
+                parametros.put("lab1", lab1);
+                parametros.put("lab2", lab2);
+                parametros.put("docente1", docente1);
+                parametros.put("docente2", docente2);
+                parametros.put("nivel1", nivel1);
+                parametros.put("nivel2", nivel2);
+                parametros.put("ingreso1", ingreso1);
+                parametros.put("ingreso2", ingreso2);
+                parametros.put("salida1", salida1);
+                parametros.put("salida2", salida2);
+                parametros.put("materia1", materia1);
+                parametros.put("materia2", materia2);
+
+                String path = "C:\\Users\\User\\Documents\\NetBeansProjects\\RegistroPracticas\\src\\reporte\\Plantilla.jrxml";
+                JasperReport reporte = JasperCompileManager.compileReport(path);
+                JasperPrint print = JasperFillManager.fillReport(reporte, parametros, cc.conectar());
+                JasperViewer.viewReport(print, false);
+            } catch (JRException ex) {
+                JOptionPane.showMessageDialog(null, "No se puede sacar el reporte, " + ex);
+            }
         }
+
+
     }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
@@ -355,9 +390,7 @@ public class Pantalla_gestion extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -369,6 +402,8 @@ public class Pantalla_gestion extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox<String> jornadaCond;
     private javax.swing.JComboBox<String> nivelCond;
+    private javax.swing.JLabel periodo;
+    private javax.swing.JButton reporteClick;
     private javax.swing.JTable reportes;
     // End of variables declaration//GEN-END:variables
 
@@ -392,10 +427,10 @@ public class Pantalla_gestion extends javax.swing.JFrame {
     }
 
     public void cargarTablaReportes(String condicional) {
-        
+
         /////////////////
         try {
-            String[] titulos = {"#", "Laboratorio", "Docente", "Materia","Paralelo", "Nivel", "Carrera", "Facultad", "H. Ingreso", "H. Salida", "Periodo académico", "Bloque"};
+            String[] titulos = {"#", "Laboratorio", "Docente", "Materia", "Paralelo", "Nivel", "Carrera", "Facultad", "H. Ingreso", "H. Salida", "Periodo académico", "Bloque"};
             String[] materiasList = new String[12];
             modelo = new DefaultTableModel(null, titulos);
             String sql = "SELECT r.id, l.nombre, d.nombre, m.nombre, m.nivel, c.nombre, f.abreviatura, h.horaEntrada, h.horaSalida, b.nombre, p.nombre "
@@ -499,6 +534,59 @@ public class Pantalla_gestion extends javax.swing.JFrame {
             }
         } else {
             cargarTablaReportes("");
+        }
+    }
+
+    private void seleccionarMateria() {
+        reportes.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+
+                if (reportes.getSelectedRow() != -1) {
+                    reporteClick.setEnabled(true);
+                    fila = reportes.getSelectedRow();
+                    lab1 = reportes.getValueAt(fila, 1).toString();
+                    docente1 = reportes.getValueAt(fila, 2).toString();
+                    materia1 = reportes.getValueAt(fila, 3).toString();
+                    paralelo1 = reportes.getValueAt(fila, 4).toString();
+                    nivel1 = reportes.getValueAt(fila, 5).toString();
+                    carrera1 = reportes.getValueAt(fila, 6).toString();
+                    ingreso1 = reportes.getValueAt(fila, 8).toString();
+                    salida1 = reportes.getValueAt(fila, 9).toString();
+                    idActual = Integer.valueOf(reportes.getValueAt(fila, 0).toString()); //Guardamos el ID para actualizar o eliminar posteriormente
+                }
+            }
+
+        });
+    }
+
+    private void imprimirReportes() {
+        try {
+            Map parametros = new HashMap();
+            parametros.put("fecha", fecha.getText());
+            parametros.put("auxiliar", auxiliar.getText());
+            parametros.put("periodo", periodo.getText());
+            parametros.put("carrera", auxiliar.getText());
+            parametros.put("carrera2", auxiliar.getText());
+            parametros.put("lab1", auxiliar.getText());
+            parametros.put("lab2", auxiliar.getText());
+            parametros.put("docente1", auxiliar.getText());
+            parametros.put("docente2", auxiliar.getText());
+            parametros.put("nivel1", auxiliar.getText());
+            parametros.put("nivel2", auxiliar.getText());
+            parametros.put("ingreso1", auxiliar.getText());
+            parametros.put("ingreso2", auxiliar.getText());
+            parametros.put("salida1", auxiliar.getText());
+            parametros.put("salida2", auxiliar.getText());
+            parametros.put("materia1", auxiliar.getText());
+            parametros.put("materia2", auxiliar.getText());
+
+            String path = "C:\\Users\\User\\Documents\\NetBeansProjects\\RegistroPracticas\\src\\reporte\\Plantilla.jrxml";
+            JasperReport reporte = JasperCompileManager.compileReport(path);
+            JasperPrint print = JasperFillManager.fillReport(reporte, parametros, cc.conectar());
+            JasperViewer.viewReport(print, false);
+        } catch (JRException ex) {
+            JOptionPane.showMessageDialog(null, "No se puede sacar el reporte, " + ex);
         }
     }
 }
