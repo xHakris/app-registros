@@ -6,12 +6,6 @@
 package fisei;
 
 import bd.Cliente;
-import bd.Conexion;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
@@ -33,13 +27,14 @@ public class Docente extends javax.swing.JFrame {
     DefaultTableModel modelo = new DefaultTableModel();
     String doc;
     Integer fila, idActual;
-    Conexion cc = new Conexion();
-    Connection cn = cc.conectar();
     TableColumnModel columnModel;
     JSONArray docentesJSON;
     Cliente cliente = new Cliente();
-
+    String[] titulos = {"#", "Nombre del docente"};
+    
     public Docente() {
+        
+        modelo = new DefaultTableModel(null, titulos);
         initComponents();
         seleccionarDocente();
         cargarTablaDocentes();
@@ -217,16 +212,14 @@ public class Docente extends javax.swing.JFrame {
 
     public void cargarTablaDocentes() {
         //http://localhost:8080/docente/obtenerDocentes
-        String[] titulos = {"#", "Nombre del docente"};
-        modelo = new DefaultTableModel(null, titulos);
-        JSONArray datos = cliente.get("http://localhost:8080/docente/obtenerDocentes");//Con getResponse() consumimos la api
-        String[] respuesta = new String[2];
+        JSONArray respuesta = cliente.get("http://localhost:8080/docente/obtenerDocentes");//Con getResponse() consumimos la api
+        String[] datos = new String[2];
 
-        for (int i = 0; i < datos.length(); i++) {
-            JSONObject jsonObject = datos.getJSONObject(i); //Guardamos el dato [i] en un objeto
-            respuesta[0] = String.valueOf(jsonObject.getInt("id")); //Guardamos el valor del jsonObject en un array
-            respuesta[1] = jsonObject.getString("nombre");
-            modelo.addRow(respuesta);
+        for (int i = 0; i < respuesta.length(); i++) {
+            JSONObject jsonObject = respuesta.getJSONObject(i); //Guardamos el dato [i] en un objeto
+            datos[0] = String.valueOf(jsonObject.getInt("id")); //Guardamos el valor del jsonObject en un array
+            datos[1] = jsonObject.getString("nombre");
+            modelo.addRow(datos);
         }
 
         docentes.setModel(modelo);

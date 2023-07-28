@@ -5,8 +5,7 @@
  */
 package fisei;
 
-import bd.Conexion;
-import java.sql.Connection;
+import bd.Cliente;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,6 +17,10 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  *
@@ -31,9 +34,13 @@ public class Horario extends javax.swing.JFrame {
     DefaultComboBoxModel carrerasModel = new DefaultComboBoxModel();
     String doc;
     Integer fila, idActual;
-    Conexion cc = new Conexion();
-    Connection cn = cc.conectar();
     TableColumnModel columnModel;
+    
+    Cliente cliente = new Cliente();
+    MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+
+    
+    String[] titulos = {"#", "Hora de entrada", "Hora de salida", "Dia"};
     
     public Horario() {
         initComponents();
@@ -53,9 +60,9 @@ public class Horario extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
-        hEntrada = new javax.swing.JComboBox<>();
+        horaEntrada = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        hSalida = new javax.swing.JComboBox<>();
+        horaSalida = new javax.swing.JComboBox<>();
         jbtn_Nuevo = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         horarios = new javax.swing.JTable();
@@ -69,16 +76,16 @@ public class Horario extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setText("Hora entrada");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 98, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, -1, 20));
 
-        hEntrada.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22" }));
-        getContentPane().add(hEntrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 123, 201, -1));
+        horaEntrada.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22" }));
+        getContentPane().add(horaEntrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, 40, -1));
 
         jLabel3.setText("Hora Salida");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 161, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, -1, 20));
 
-        hSalida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22" }));
-        getContentPane().add(hSalida, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 186, 201, -1));
+        horaSalida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22" }));
+        getContentPane().add(horaSalida, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 140, 40, -1));
 
         jbtn_Nuevo.setText("Agregar nuevo");
         jbtn_Nuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -136,7 +143,7 @@ public class Horario extends javax.swing.JFrame {
         getContentPane().add(cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 380, 100, 30));
 
         dia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "LUNES", "MARTES", "MIÉRCOLES", "JUEVES", "VIERNES", "SÁBADO", "DOMINGO" }));
-        getContentPane().add(dia, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, -1, -1));
+        getContentPane().add(dia, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 120, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -149,7 +156,7 @@ public class Horario extends javax.swing.JFrame {
 
     private void jbtn_NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_NuevoActionPerformed
         
-            agregarMateria();
+            agregarHorario();
         
     }//GEN-LAST:event_jbtn_NuevoActionPerformed
 
@@ -206,8 +213,8 @@ public class Horario extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelar;
     private javax.swing.JComboBox<String> dia;
-    private javax.swing.JComboBox<String> hEntrada;
-    private javax.swing.JComboBox<String> hSalida;
+    private javax.swing.JComboBox<String> horaEntrada;
+    private javax.swing.JComboBox<String> horaSalida;
     private javax.swing.JTable horarios;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel2;
@@ -222,46 +229,52 @@ public class Horario extends javax.swing.JFrame {
 
     
     public void cargarTablaHorarios() {
-        try {
-            int i = 0;
-            String[] titulos = {"#", "Hora de entrada", "Hora de salida", "Dia"};
-            String[] horariosList = new String[4];
-            modelo = new DefaultTableModel(null, titulos);
-            String sql = "select * from horarios";
-            Statement psd = cn.createStatement();
-            ResultSet rs = psd.executeQuery(sql);
-            while (rs.next()) { //Contamos cuantos datos hay
-                i++;
-            }
-            horasEntrada = new String[i]; //Creamos los array con la cantidad de datos que haya
-            horasSalida = new String[i];
-            i=0;
-            rs = psd.executeQuery(sql); //ejecutamos de nuevo la consulta
-            while (rs.next()) {
-                horariosList[0] = rs.getString("id");
-                horariosList[1] = rs.getString("horaEntrada");
-                horasEntrada[i] = rs.getString("horaEntrada");
-                horariosList[2] = rs.getString("horaSalida"); //Enviamos el ID y nos devuelve el nombre
-                horasSalida[i] = rs.getString("horaSalida");
-                horariosList[3] = rs.getString("dia"); //Lo mismo de arriba
-                modelo.addRow(horariosList);
-                i++;
-            }
-            horarios.setModel(modelo);
-            columnModel = horarios.getColumnModel();
-            columnModel.getColumn(0).setPreferredWidth(1);//Ajustamos el tamaño de la columna 0
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex);
+        modelo = new DefaultTableModel(null, titulos);
+        JSONArray respuesta = cliente.get("http://localhost:8080/horario/obtenerHorarios");//Con getResponse() consumimos la api
+        String[] datos = new String[4];
+
+        for (int i = 0; i < respuesta.length(); i++) {
+            JSONObject jsonObject = respuesta.getJSONObject(i); //Guardamos el dato [i] en un objeto
+            datos[0] = String.valueOf(jsonObject.getInt("id")); //Guardamos el valor del jsonObject en un array
+            datos[1] = String.valueOf(jsonObject.getInt("horaEntrada"));
+            datos[2] = String.valueOf(String.valueOf(jsonObject.getInt("horaSalida")));
+            datos[3] = String.valueOf(jsonObject.getString("dia"));
+            modelo.addRow(datos);
         }
+
+        horarios.setModel(modelo);
+        
+        columnModel = horarios.getColumnModel();
+        columnModel.getColumn(0).setPreferredWidth(1);//Ajustamos el tamaño de la columna 0
+        
     }
 
-    private void agregarMateria() {
+    private void agregarHorario() {
+        
+        JSONObject postData = new JSONObject();
+        postData.put("nombre", Integer.valueOf(horaEntrada.getSelectedItem().toString()));
+        postData.put("horaEntrada", devolverIdDocente(String.valueOf(docente.getSelectedItem())));
+        postData.put("horaSalida", devolverIdCarrera(String.valueOf(carrera.getSelectedItem())));
+        postData.put("dia", nivel.getSelectedItem());
+
+        RequestBody requestbody = RequestBody.create(JSON, postData.toString());
+
+        boolean respuesta = cliente.post("http://localhost:8080/horario/guardar", requestbody);
+
+        if (respuesta) {
+            JOptionPane.showMessageDialog(null, "Se ha agregado la materia\n'" + nombreMateria.getText() + "'\ncorrectamente");
+            cargarTablaMaterias();
+            BorrarTxt();
+        } else {
+            JOptionPane.showMessageDialog(null, "Error al guardar la materia");
+        }
+        /////////////////
         try {
             String sql = "insert into horarios values(?,?,?,?)";
             PreparedStatement psd = cn.prepareStatement(sql);
             psd.setString(1, null);
-            psd.setInt(2, Integer.valueOf(hEntrada.getSelectedItem().toString()));
-            psd.setInt(3, Integer.valueOf(hSalida.getSelectedItem().toString()));
+            psd.setInt(2, Integer.valueOf(horaEntrada.getSelectedItem().toString()));
+            psd.setInt(3, Integer.valueOf(horaSalida.getSelectedItem().toString()));
             psd.setString(4, dia.getSelectedItem().toString());
             int r = psd.executeUpdate();
             if (r > 0) {
@@ -275,7 +288,7 @@ public class Horario extends javax.swing.JFrame {
 
     private void editarMateria() {
         try {
-                String sql = "Update horarios set horaEntrada='" + hEntrada.getSelectedItem() + "', horaSalida='" + hSalida.getSelectedItem() + "', dia='" + dia.getSelectedItem()+ "' WHERE id='" + idActual + "'";
+                String sql = "Update horarios set horaEntrada='" + horaEntrada.getSelectedItem() + "', horaSalida='" + horaSalida.getSelectedItem() + "', dia='" + dia.getSelectedItem()+ "' WHERE id='" + idActual + "'";
                 PreparedStatement psd = cn.prepareStatement(sql);
 
                 int n = psd.executeUpdate();
@@ -332,8 +345,8 @@ public class Horario extends javax.swing.JFrame {
                 if (horarios.getSelectedRow() != -1) {
                     jbtn_Nuevo.setEnabled(false);
                     fila = horarios.getSelectedRow();
-                    hEntrada.setSelectedIndex(devolverIndex(horarios.getValueAt(fila, 1).toString()));
-                    hSalida.setSelectedIndex(devolverIndex(horarios.getValueAt(fila, 2).toString()));
+                    horaEntrada.setSelectedIndex(devolverIndex(horarios.getValueAt(fila, 1).toString()));
+                    horaSalida.setSelectedIndex(devolverIndex(horarios.getValueAt(fila, 2).toString()));
                     dia.setSelectedIndex(devolverIndexDia(horarios.getValueAt(fila, 3).toString()));
                     idActual = Integer.valueOf(horarios.getValueAt(fila, 0).toString()); //Guardamos el ID para actualizar o eliminar posteriormente
                 }
@@ -345,7 +358,7 @@ public class Horario extends javax.swing.JFrame {
     
     private int devolverIndex(String nombre) {
         for (int i = 0; i < 14; i++) {
-            if (hEntrada.getItemAt(i).equals(nombre)) {//Si el nombre es igual que el que se encuentra en el combo devuelve la posicion del numero en el combo
+            if (horaEntrada.getItemAt(i).equals(nombre)) {//Si el nombre es igual que el que se encuentra en el combo devuelve la posicion del numero en el combo
             return i;
             }
         }

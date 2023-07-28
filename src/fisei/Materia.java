@@ -5,12 +5,7 @@
  */
 package fisei;
 
-import bd.Conexion;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import bd.Cliente;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -18,24 +13,32 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  *
  * @author User
  */
 public class Materia extends javax.swing.JFrame {
-    
+
     DefaultTableModel modelo = new DefaultTableModel();
     String[] idsDocentes, docentesList, carrerasList, idsCarreras;
     DefaultComboBoxModel pofesoresModel = new DefaultComboBoxModel();
     DefaultComboBoxModel carrerasModel = new DefaultComboBoxModel();
     String doc;
     Integer fila, idActual;
-    Conexion cc = new Conexion();
-    Connection cn = cc.conectar();
     TableColumnModel columnModel;
-    
+
+    Cliente cliente = new Cliente();
+    MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+
+    String[] titulos = {"#", "Materia", "Docente", "Carrera", "Nivel"};
+
     public Materia() {
+        
         initComponents();
         cargarProfesores();
         cargarCarreras();
@@ -43,6 +46,7 @@ public class Materia extends javax.swing.JFrame {
         cargarTablaMaterias();
         this.setLocationRelativeTo(null);
         cerrarEdicion();
+        
     }
 
     /**
@@ -67,6 +71,8 @@ public class Materia extends javax.swing.JFrame {
         jbtn_Eliminar = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         cancelar = new javax.swing.JButton();
+        nivel = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -146,6 +152,12 @@ public class Materia extends javax.swing.JFrame {
         });
         getContentPane().add(cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 370, -1, -1));
 
+        nivel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9" }));
+        getContentPane().add(nivel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 230, 50, -1));
+
+        jLabel4.setText("Nivel");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, -1, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -162,7 +174,7 @@ public class Materia extends javax.swing.JFrame {
     private void jbtn_NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_NuevoActionPerformed
         if (nombreMateria.equals("") || nombreMateria.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Ingrese un nombre para la materia");
-        }else{
+        } else {
             agregarMateria();
         }
     }//GEN-LAST:event_jbtn_NuevoActionPerformed
@@ -222,110 +234,89 @@ public class Materia extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbtn_Eliminar;
     private javax.swing.JButton jbtn_Nuevo;
     private javax.swing.JButton jbtn_editar;
     private javax.swing.JTable materias;
+    private javax.swing.JComboBox<String> nivel;
     private javax.swing.JTextField nombreMateria;
     // End of variables declaration//GEN-END:variables
 
-    private void cargarProfesores() {
-        int i=0;
-        try {
-            String sql = "select * from docentes";
-            Statement psd = cn.createStatement();
-            ResultSet rs = psd.executeQuery(sql);
-            while (rs.next()) {
-                i++;
-            }
-            docentesList = new String[i];
-            idsDocentes = new String[i];
-            
-            rs = psd.executeQuery(sql);
-            i = 0;
-            while (rs.next()) {
-                docentesList[i] =  rs.getString("nombre");
-                idsDocentes[i] = rs.getString("id");
-                i++;
-                
-            }
-             pofesoresModel =  new DefaultComboBoxModel(docentesList);
-             docente.setModel(pofesoresModel);
-            
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "No hay docentes que mostrar");
-        }
-    }
-    
-    private void cargarCarreras() {
-        int i=0;
-        try {
-            String sql = "select * from carrera";
-            Statement psd = cn.createStatement();
-            ResultSet rs = psd.executeQuery(sql);
-            while (rs.next()) {
-                i++;
-            }
-            carrerasList = new String[i];
-            idsCarreras = new String[i];
-            
-            rs = psd.executeQuery(sql);
-            i = 0;
-            while (rs.next()) {
-                carrerasList[i] =  rs.getString("nombre");
-                idsCarreras[i] = rs.getString("id");
-                i++;
-                
-            }
-             carrerasModel =  new DefaultComboBoxModel(carrerasList);
-             carrera.setModel(carrerasModel);
-            
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "No hay carreras que mostrar");
-        }
-    }
-    
     public void cargarTablaMaterias() {
-        try {
-            String[] titulos = {"#", "Materia", "Docente", "Carrera"};
-            String[] materiasList = new String[4];
-            modelo = new DefaultTableModel(null, titulos);
-            String sql = "select * from materia";
-            Statement psd = cn.createStatement();
-            ResultSet rs = psd.executeQuery(sql);
-            while (rs.next()) {
-                materiasList[0] = rs.getString("id");
-                materiasList[1] = rs.getString("nombre");
-                materiasList[2] = devolverDocente(rs.getString("docenteID")); //Enviamos el ID y nos devuelve el nombre
-                materiasList[3] = devolverCarrera(rs.getString("carreraID")); //Lo mismo de arriba
-                modelo.addRow(materiasList);
-            }
-            materias.setModel(modelo);
-            columnModel = materias.getColumnModel();
-            columnModel.getColumn(0).setPreferredWidth(1);//Ajustamos el tamaño de la columna 0
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex);
+        modelo = new DefaultTableModel(null, titulos);
+        JSONArray respuesta = cliente.get("http://localhost:8080/materia/obtenerMaterias");//Con getResponse() consumimos la api
+        String[] datos = new String[5];
+
+        for (int i = 0; i < respuesta.length(); i++) {
+            JSONObject jsonObject = respuesta.getJSONObject(i); //Guardamos el dato [i] en un objeto
+            datos[0] = String.valueOf(jsonObject.getInt("id")); //Guardamos el valor del jsonObject en un array
+            datos[1] = jsonObject.getString("nombre");
+            datos[2] = devolverDocente(String.valueOf(jsonObject.getInt("docenteID")));
+            datos[3] = devolverCarrera(String.valueOf(jsonObject.getInt("carreraID")));
+            datos[4] = String.valueOf(jsonObject.getInt("nivel"));
+            modelo.addRow(datos);
         }
+
+        materias.setModel(modelo);
+    }
+
+    private void cargarProfesores() {
+        //http://localhost:8080/materia/obtenerMaterias
+
+        JSONArray respuesta = cliente.get("http://localhost:8080/docente/obtenerDocentes");//Con getResponse() consumimos la api
+
+        docentesList = new String[respuesta.length()];
+        idsDocentes = new String[respuesta.length()];
+
+        for (int i = 0; i < respuesta.length(); i++) {
+            JSONObject jsonObject = respuesta.getJSONObject(i);
+            idsDocentes[i] = String.valueOf(jsonObject.getInt("id"));
+            docentesList[i] = String.valueOf(jsonObject.getString("nombre"));
+        }
+        pofesoresModel = new DefaultComboBoxModel(docentesList);
+        docente.setModel(pofesoresModel);
+
+    }
+
+    private void cargarCarreras() {
+
+        JSONArray respuesta = cliente.get("http://localhost:8080/carrera/obtenerCarreras");//Con getResponse() consumimos la api
+
+        carrerasList = new String[respuesta.length()];
+        idsCarreras = new String[respuesta.length()];
+
+        for (int i = 0; i < respuesta.length(); i++) {
+            JSONObject jsonObject = respuesta.getJSONObject(i);
+            idsCarreras[i] = String.valueOf(jsonObject.getInt("id"));
+            carrerasList[i] = String.valueOf(jsonObject.getString("nombre"));
+        }
+        carrerasModel = new DefaultComboBoxModel(carrerasList);
+        carrera.setModel(carrerasModel);
+
     }
 
     private void agregarMateria() {
-        try {
-            String sql = "insert into materia values(?,?,?,?)";
-            PreparedStatement psd = cn.prepareStatement(sql);
-            psd.setString(1, null);
-            psd.setString(2, nombreMateria.getText());
-            psd.setInt(3, devolverIdDocente(String.valueOf(docente.getSelectedItem())));
-            psd.setInt(4, devolverIdCarrera(String.valueOf(carrera.getSelectedItem())));
-            int r = psd.executeUpdate();
-            if (r > 0) {
-                JOptionPane.showMessageDialog(null, "Se ha agregado la materia\n'"+nombreMateria.getText()+"'\ncorrectamente");
-                cargarTablaMaterias();
-                BorrarTxt();
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex);
+
+        JSONObject postData = new JSONObject();
+        postData.put("nombre", nombreMateria.getText());
+        postData.put("docenteID", devolverIdDocente(String.valueOf(docente.getSelectedItem())));
+        postData.put("carreraID", devolverIdCarrera(String.valueOf(carrera.getSelectedItem())));
+        postData.put("nivel", nivel.getSelectedItem());
+
+        RequestBody requestbody = RequestBody.create(JSON, postData.toString());
+
+        boolean respuesta = cliente.post("http://localhost:8080/materia/guardar", requestbody);
+
+        if (respuesta) {
+            JOptionPane.showMessageDialog(null, "Se ha agregado la materia\n'" + nombreMateria.getText() + "'\ncorrectamente");
+            cargarTablaMaterias();
+            BorrarTxt();
+        } else {
+            JOptionPane.showMessageDialog(null, "Error al guardar la materia");
         }
+
     }
 
     private void editarMateria() {
@@ -335,20 +326,24 @@ public class Materia extends javax.swing.JFrame {
             nombreMateria.requestFocus();
 
         } else {
-            try {
-                String sql = "Update materia set nombre='" + nombreMateria.getText() + "', docenteID='" + devolverIdDocente(String.valueOf(docente.getSelectedItem())) + "', carreraID='" + devolverIdCarrera(String.valueOf(carrera.getSelectedItem()))+ "' WHERE id='" + idActual + "'";
-                PreparedStatement psd = cn.prepareStatement(sql);
+            JSONObject putData = new JSONObject();
+            putData.put("id", idActual);
+            putData.put("nombre", nombreMateria.getText());
+            putData.put("docenteID", devolverIdDocente(String.valueOf(docente.getSelectedItem())));
+            putData.put("carreraID", devolverIdCarrera(String.valueOf(carrera.getSelectedItem())));
+            putData.put("nivel", Integer.valueOf(nivel.getSelectedItem().toString()));
 
-                int n = psd.executeUpdate();
+            RequestBody requestbody = RequestBody.create(JSON, putData.toString());
 
-                if (n > 0) {
-                    JOptionPane.showMessageDialog(null, "Actualizo Correctamente");
-                    cargarTablaMaterias();
-                    BorrarTxt();
-                    cerrarEdicion();
-                }
-            } catch (SQLException ex) {
-                System.out.println("ERROR: " + ex);
+            boolean respuesta = cliente.put("http://localhost:8080/materia/actualizarMateria", requestbody);
+
+            if (respuesta) {
+                JOptionPane.showMessageDialog(null, "Actualizo Correctamente");
+                cargarTablaMaterias();
+                BorrarTxt();
+                cerrarEdicion();
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al editar la materia");
             }
         }
     }
@@ -358,26 +353,19 @@ public class Materia extends javax.swing.JFrame {
                 "Estas seguro de borrar el registro",
                 "Borrar registros", JOptionPane.WARNING_MESSAGE,
                 JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
-            try {
-                String sql = "DELETE  FROM materia WHERE id = '" + idActual + "'";
+            boolean respuesta = cliente.delete("http://localhost:8080/materia/" + idActual);
 
-                PreparedStatement psd = cn.prepareStatement(sql);
-
-                int n = psd.executeUpdate();
-
-                if (n > 0) {
-                    JOptionPane.showMessageDialog(null, "Se elimino correctamente");
-                    cargarTablaMaterias();
-                    BorrarTxt();
-                    cerrarEdicion();
-                }
-
-            } catch (SQLException ex) {
-                System.out.println("ERROR" + ex);
+            if (respuesta) {
+                JOptionPane.showMessageDialog(null, "Se elimino correctamente");
+                cargarTablaMaterias();
+                BorrarTxt();
+                cerrarEdicion();
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al eliminar la materia");
             }
         }
     }
-    
+
     private void BorrarTxt() {
         nombreMateria.setText("");
     }
@@ -393,52 +381,53 @@ public class Materia extends javax.swing.JFrame {
                     nombreMateria.setText(materias.getValueAt(fila, 1).toString());
                     docente.setSelectedIndex(devolverIndexDocente(materias.getValueAt(fila, 2).toString()));
                     carrera.setSelectedIndex(devolverIndexCarrera(materias.getValueAt(fila, 3).toString()));
+                    nivel.setSelectedIndex(Integer.valueOf(materias.getValueAt(fila, 4).toString())-1);
                     idActual = Integer.valueOf(materias.getValueAt(fila, 0).toString()); //Guardamos el ID para actualizar o eliminar posteriormente
+                    
                 }
             }
 
-            
         });
     }
-    
-    private String devolverDocente(String id){
-        
+
+    private String devolverDocente(String id) {
+
         for (int i = 0; i < docentesList.length; i++) {
             if (idsDocentes[i].equals(id)) {
-            return docentesList[i];
+                return docentesList[i];
             }
         }
         return "";
     }
-    
-    private String devolverCarrera(String id){
-        
+
+    private String devolverCarrera(String id) {
+
         for (int i = 0; i < carrerasList.length; i++) {
             if (idsCarreras[i].equals(id)) {
-            return carrerasList[i];
+                return carrerasList[i];
             }
         }
         return "";
     }
-    
+
     private int devolverIndexDocente(String nombre) {
         for (int i = 0; i < docentesList.length; i++) {
             if (docentesList[i].equals(nombre)) {
-            return i;
+                return i;
             }
         }
         return 0;
     }
-    
+
     private int devolverIndexCarrera(String nombre) {
         for (int i = 0; i < carrerasList.length; i++) {
             if (carrerasList[i].equals(nombre)) {
-            return i;
+                return i;
             }
         }
         return 0;
     }
-    
+
     private void activarBotonesEdicion() {
         jbtn_editar.setEnabled(true);
         jbtn_Eliminar.setEnabled(true);
@@ -456,16 +445,16 @@ public class Materia extends javax.swing.JFrame {
     private int devolverIdDocente(String nombre) {
         for (int i = 0; i < docentesList.length; i++) {
             if (docentesList[i].equals(nombre)) {
-            return Integer.valueOf(idsDocentes[i]);
+                return Integer.valueOf(idsDocentes[i]);
             }
         }
         return 0;
     }
-    
+
     private int devolverIdCarrera(String nombre) {
         for (int i = 0; i < carrerasList.length; i++) {
             if (carrerasList[i].equals(nombre)) {
-            return Integer.valueOf(idsCarreras[i]);
+                return Integer.valueOf(idsCarreras[i]);
             }
         }
         return 0;

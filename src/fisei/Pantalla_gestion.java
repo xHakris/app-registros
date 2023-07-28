@@ -1,6 +1,5 @@
 package fisei;
 
-import bd.Conexion;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -57,7 +56,7 @@ public class Pantalla_gestion extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         nivelCond = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        auxiliar = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -202,7 +201,7 @@ public class Pantalla_gestion extends javax.swing.JFrame {
                         .addGap(47, 47, 47)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(auxiliar, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 168, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton4)
@@ -242,7 +241,7 @@ public class Pantalla_gestion extends javax.swing.JFrame {
                     .addComponent(jButton4)
                     .addComponent(jButton5)
                     .addComponent(nivelCond, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(auxiliar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24))
@@ -283,12 +282,15 @@ public class Pantalla_gestion extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        
         try {
             Map parametros = new HashMap();
             parametros.put("fecha", fecha.getText());
             parametros.put("id_reporte", "1");
+            parametros.put("auxiliar", auxiliar.getText());
+            
             String path ="C:\\Users\\User\\Documents\\NetBeansProjects\\RegistroPracticas\\src\\reporte\\Plantilla.jrxml";
-            JasperReport reporte = JasperCompileManager.compileReport(path);
+             JasperReport reporte = JasperCompileManager.compileReport(path);
             JasperPrint print = JasperFillManager.fillReport(reporte,parametros, cc.conectar());
             JasperViewer.viewReport(print,false);
         } catch (JRException ex) {
@@ -332,6 +334,7 @@ public class Pantalla_gestion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField auxiliar;
     private javax.swing.JComboBox<String> bloqueCond;
     private javax.swing.JLabel dia;
     private javax.swing.JLabel fecha;
@@ -350,7 +353,6 @@ public class Pantalla_gestion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JComboBox<String> jornadaCond;
     private javax.swing.JComboBox<String> nivelCond;
     private javax.swing.JTable reportes;
@@ -376,15 +378,18 @@ public class Pantalla_gestion extends javax.swing.JFrame {
     }
 
     public void cargarTablaReportes(String condicional) {
+        
+        /////////////////
         try {
-            String[] titulos = {"#", "Laboratorio", "Docente", "Materia", "Nivel", "Carrera", "Facultad", "H. Ingreso", "H. Salida", "Periodo académico", "Bloque"};
-            String[] materiasList = new String[11];
+            String[] titulos = {"#", "Laboratorio", "Docente", "Materia","Paralelo", "Nivel", "Carrera", "Facultad", "H. Ingreso", "H. Salida", "Periodo académico", "Bloque"};
+            String[] materiasList = new String[12];
             modelo = new DefaultTableModel(null, titulos);
-            String sql = "SELECT r.id, l.nombre, d.nombre, m.nombre, m.nivel, c.nombre, f.abreviatura, h.horaEntrada, h.horaSalida, b.nombre "
+            String sql = "SELECT r.id, l.nombre, d.nombre, m.nombre, m.nivel, c.nombre, f.abreviatura, h.horaEntrada, h.horaSalida, b.nombre, p.nombre "
                     + "FROM reporte r "
                     + "JOIN materia m ON r.id_Materia = m.id "
                     + "JOIN horarios h ON r.id_Horario = h.id "
                     + "JOIN laboratorios l ON r.id_Laboratorio = l.id "
+                    + "JOIN paralelos p ON r.id_paralelo = p.id "
                     + "JOIN docentes d ON m.docenteID = d.id "
                     + "JOIN carrera c ON m.carreraID = c.id "
                     + "JOIN bloques b ON c.bloqueID = b.id "
@@ -398,13 +403,14 @@ public class Pantalla_gestion extends javax.swing.JFrame {
                 materiasList[1] = rs.getString("l.nombre");
                 materiasList[2] = rs.getString("d.nombre");
                 materiasList[3] = rs.getString("m.nombre");
-                materiasList[4] = rs.getString("m.nivel");
-                materiasList[5] = rs.getString("c.nombre");
-                materiasList[6] = rs.getString("f.abreviatura");
-                materiasList[7] = rs.getString("h.horaEntrada");
-                materiasList[8] = rs.getString("h.horaSalida");
-                materiasList[9] = "";
-                materiasList[10] = rs.getString("b.nombre");
+                materiasList[4] = rs.getString("p.nombre");
+                materiasList[5] = rs.getString("m.nivel");
+                materiasList[6] = rs.getString("c.nombre");
+                materiasList[7] = rs.getString("f.abreviatura");
+                materiasList[8] = rs.getString("h.horaEntrada");
+                materiasList[9] = rs.getString("h.horaSalida");
+                materiasList[10] = "";
+                materiasList[11] = rs.getString("b.nombre");
                 modelo.addRow(materiasList);
             }
             reportes.setModel(modelo);
