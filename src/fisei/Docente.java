@@ -5,33 +5,40 @@
  */
 package fisei;
 
+import bd.Cliente;
 import bd.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  *
  * @author User
  */
 public class Docente extends javax.swing.JFrame {
-    
+
+    MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     DefaultTableModel modelo = new DefaultTableModel();
     String doc;
     Integer fila, idActual;
     Conexion cc = new Conexion();
     Connection cn = cc.conectar();
     TableColumnModel columnModel;
-    
+    JSONArray docentesJSON;
+    Cliente cliente = new Cliente();
+
     public Docente() {
         initComponents();
         seleccionarDocente();
@@ -143,7 +150,7 @@ public class Docente extends javax.swing.JFrame {
     private void jbtn_NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_NuevoActionPerformed
         if (nombreDocente.equals("") || nombreDocente.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Ingrese un nombre para el docente");
-        }else{
+        } else {
             agregarDocente();
         }
     }//GEN-LAST:event_jbtn_NuevoActionPerformed
@@ -207,43 +214,42 @@ public class Docente extends javax.swing.JFrame {
     private javax.swing.JButton jbtn_editar;
     private javax.swing.JTextField nombreDocente;
     // End of variables declaration//GEN-END:variables
-    
+
     public void cargarTablaDocentes() {
-        try {
-            String[] titulos = {"#", "Nombre del docente"};
-            String[] docentesList = new String[2];
-            modelo = new DefaultTableModel(null, titulos);
-            String sql = "select * from docentes";
-            Statement psd = cn.createStatement();
-            ResultSet rs = psd.executeQuery(sql);
-            while (rs.next()) {
-                docentesList[0] = rs.getString("id");
-                docentesList[1] = rs.getString("nombre");
-                modelo.addRow(docentesList);
-            }
-            docentes.setModel(modelo);
-            columnModel = docentes.getColumnModel();
-            columnModel.getColumn(0).setPreferredWidth(1);//Ajustamos el tamaño de la columna 0
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex);
+        //http://localhost:8080/docente/obtenerDocentes
+        String[] titulos = {"#", "Nombre del docente"};
+        modelo = new DefaultTableModel(null, titulos);
+        JSONArray datos = cliente.get("http://localhost:8080/docente/obtenerDocentes");//Con getResponse() consumimos la api
+        String[] respuesta = new String[2];
+
+        for (int i = 0; i < datos.length(); i++) {
+            JSONObject jsonObject = datos.getJSONObject(i); //Guardamos el dato [i] en un objeto
+            respuesta[0] = String.valueOf(jsonObject.getInt("id")); //Guardamos el valor del jsonObject en un array
+            respuesta[1] = jsonObject.getString("nombre");
+            modelo.addRow(respuesta);
         }
+
+        docentes.setModel(modelo);
+        columnModel = docentes.getColumnModel();
+        columnModel.getColumn(0).setPreferredWidth(1);
     }
 
     private void agregarDocente() {
-        try {
-            String sql = "insert into docentes values(?,?)";
-            PreparedStatement psd = cn.prepareStatement(sql);
-            psd.setString(1, null);
-            psd.setString(2, nombreDocente.getText());
-            int r = psd.executeUpdate();
-            if (r > 0) {
-                JOptionPane.showMessageDialog(null, "Se ha agregado el docente\n'"+nombreDocente.getText()+"'\ncorrectamente");
-                cargarTablaDocentes();
-                BorrarTxt();
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex);
+        JSONObject postData = new JSONObject();
+        postData.put("nombre", nombreDocente.getText());
+
+        RequestBody requestbody = RequestBody.create(JSON, postData.toString());
+
+        boolean respuesta = cliente.post("http://localhost:8080/docente/guardar", requestbody);
+
+        if (respuesta) {
+            JOptionPane.showMessageDialog(null, "Se ha agregado el docente\n'" + nombreDocente.getText() + "'\ncorrectamente");
+            cargarTablaDocentes();
+            BorrarTxt();
+        } else {
+            JOptionPane.showMessageDialog(null, "Error al guardar el docente");
         }
+
     }
 
     private void editarDocente() {
@@ -253,49 +259,46 @@ public class Docente extends javax.swing.JFrame {
             nombreDocente.requestFocus();
 
         } else {
-            try {
-                String sql = "Update docentes set nombre='" + nombreDocente.getText() + "' WHERE id='" + idActual + "'";
-                PreparedStatement psd = cn.prepareStatement(sql);
+            JSONObject putData = new JSONObject();
+            putData.put("id", idActual);
+            putData.put("nombre", nombreDocente.getText());
 
-                int n = psd.executeUpdate();
+            RequestBody requestbody = RequestBody.create(JSON, putData.toString());
 
-                if (n > 0) {
-                    JOptionPane.showMessageDialog(null, "Actualizo Correctamente");
-                    cargarTablaDocentes();
-                    BorrarTxt();
-                    cerrarEdicion();
-                }
-            } catch (SQLException ex) {
-                System.out.println("ERROR: " + ex);
+            boolean respuesta = cliente.put("http://localhost:8080/docente/actualizarMateria", requestbody);
+
+            if (respuesta) {
+                JOptionPane.showMessageDialog(null, "Actualizo Correctamente");
+                cargarTablaDocentes();
+                BorrarTxt();
+                cerrarEdicion();
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al editar el docente");
             }
         }
+
     }
 
     private void borrarDocente() {
+
         if (JOptionPane.showConfirmDialog(new JInternalFrame(),
                 "Estas seguro de borrar el registro",
                 "Borrar registros", JOptionPane.WARNING_MESSAGE,
                 JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
-            try {
-                String sql = "DELETE  FROM docentes WHERE id = '" + idActual + "'";
+            boolean respuesta = cliente.delete("http://localhost:8080/docente/" + idActual);
 
-                PreparedStatement psd = cn.prepareStatement(sql);
-
-                int n = psd.executeUpdate();
-
-                if (n > 0) {
-                    JOptionPane.showMessageDialog(null, "Se elimino correctamente");
-                    cargarTablaDocentes();
-                    BorrarTxt();
-                    cerrarEdicion();
-                }
-
-            } catch (SQLException ex) {
-                System.out.println("ERROR" + ex);
+            if (respuesta) {
+                JOptionPane.showMessageDialog(null, "Se elimino correctamente");
+                cargarTablaDocentes();
+                BorrarTxt();
+                cerrarEdicion();
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al guardar el docente");
             }
         }
+
     }
-    
+
     private void BorrarTxt() {
         nombreDocente.setText("");
     }
@@ -313,10 +316,9 @@ public class Docente extends javax.swing.JFrame {
                 }
             }
 
-            
         });
     }
-    
+
     private void activarBotonesEdicion() {
         jbtn_editar.setEnabled(true);
         jbtn_Eliminar.setEnabled(true);
