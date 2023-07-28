@@ -64,24 +64,29 @@ public class Docente extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        nombreDocente.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         nombreDocente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nombreDocenteActionPerformed(evt);
             }
         });
-        getContentPane().add(nombreDocente, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 201, -1));
+        getContentPane().add(nombreDocente, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 140, 300, -1));
 
-        jLabel1.setText("Nombre de la materia");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, -1, -1));
+        jLabel1.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jLabel1.setText("Docente");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 110, 70, -1));
 
+        jbtn_Nuevo.setBackground(new java.awt.Color(204, 255, 204));
+        jbtn_Nuevo.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jbtn_Nuevo.setText("Agregar nuevo");
         jbtn_Nuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtn_NuevoActionPerformed(evt);
             }
         });
-        getContentPane().add(jbtn_Nuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 283, 220, 30));
+        getContentPane().add(jbtn_Nuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 240, 240, 40));
 
+        docentes.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         docentes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -95,39 +100,43 @@ public class Docente extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(docentes);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(296, 11, 870, -1));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 530, 480));
 
+        jbtn_editar.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jbtn_editar.setText("Actualizar");
         jbtn_editar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtn_editarActionPerformed(evt);
             }
         });
-        getContentPane().add(jbtn_editar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, 105, 30));
+        getContentPane().add(jbtn_editar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 310, 110, 40));
 
+        jbtn_Eliminar.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jbtn_Eliminar.setText("Borrar");
         jbtn_Eliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtn_EliminarActionPerformed(evt);
             }
         });
-        getContentPane().add(jbtn_Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 330, 105, 30));
+        getContentPane().add(jbtn_Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 310, 110, 40));
 
+        jButton4.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jButton4.setText("Volver");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 420, -1, -1));
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 10, -1, -1));
 
+        cancelar.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         cancelar.setText("Cancelar");
         cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelarActionPerformed(evt);
             }
         });
-        getContentPane().add(cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 370, -1, -1));
+        getContentPane().add(cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 370, 240, 30));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

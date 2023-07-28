@@ -77,33 +77,41 @@ public class Materia extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        nombreMateria.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         nombreMateria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nombreMateriaActionPerformed(evt);
             }
         });
-        getContentPane().add(nombreMateria, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 201, -1));
+        getContentPane().add(nombreMateria, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 250, -1));
 
+        jLabel1.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel1.setText("Nombre de la materia");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
+        jLabel2.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel2.setText("Docente");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 98, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 30, -1, -1));
 
-        getContentPane().add(docente, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 123, 201, -1));
+        docente.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        getContentPane().add(docente, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 60, 300, -1));
 
+        jLabel3.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel3.setText("Carrera");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 161, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 20, -1, -1));
 
-        getContentPane().add(carrera, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 186, 201, -1));
+        carrera.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        getContentPane().add(carrera, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 60, 280, -1));
 
+        jbtn_Nuevo.setBackground(new java.awt.Color(204, 255, 204));
+        jbtn_Nuevo.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jbtn_Nuevo.setText("Agregar nuevo");
         jbtn_Nuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtn_NuevoActionPerformed(evt);
             }
         });
-        getContentPane().add(jbtn_Nuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 283, 220, 30));
+        getContentPane().add(jbtn_Nuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 130, 230, 40));
 
         materias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -118,45 +126,51 @@ public class Materia extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(materias);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(296, 11, 870, -1));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 910, 420));
 
+        jbtn_editar.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jbtn_editar.setText("Actualizar");
         jbtn_editar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtn_editarActionPerformed(evt);
             }
         });
-        getContentPane().add(jbtn_editar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, 105, 30));
+        getContentPane().add(jbtn_editar, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 240, 110, 40));
 
+        jbtn_Eliminar.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jbtn_Eliminar.setText("Borrar");
         jbtn_Eliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtn_EliminarActionPerformed(evt);
             }
         });
-        getContentPane().add(jbtn_Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 330, 105, 30));
+        getContentPane().add(jbtn_Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 240, 110, 40));
 
+        jButton4.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jButton4.setText("Volver");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 420, -1, -1));
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 20, -1, -1));
 
+        cancelar.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         cancelar.setText("Cancelar");
         cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelarActionPerformed(evt);
             }
         });
-        getContentPane().add(cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 370, -1, -1));
+        getContentPane().add(cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 300, 230, 40));
 
+        nivel.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         nivel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9" }));
-        getContentPane().add(nivel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 230, 50, -1));
+        getContentPane().add(nivel, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 60, 50, -1));
 
+        jLabel4.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel4.setText("Nivel");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, -1, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 20, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -263,7 +277,6 @@ public class Materia extends javax.swing.JFrame {
     }
 
     private void cargarProfesores() {
-        //http://localhost:8080/materia/obtenerMaterias
 
         JSONArray respuesta = cliente.get("http://localhost:8080/docente/obtenerDocentes");//Con getResponse() consumimos la api
 

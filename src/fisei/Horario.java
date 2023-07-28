@@ -28,6 +28,7 @@ import org.json.JSONObject;
  * @author User
  */
 public class Horario extends javax.swing.JFrame {
+
     Conexion cn = new Conexion();
     Connection cc = cn.conectar();
     DefaultTableModel modelo = new DefaultTableModel();
@@ -37,13 +38,12 @@ public class Horario extends javax.swing.JFrame {
     String doc;
     Integer fila, idActual;
     TableColumnModel columnModel;
-    
+
     Cliente cliente = new Cliente();
     MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
-    
     String[] titulos = {"#", "Hora de entrada", "Hora de salida", "Dia"};
-    
+
     public Horario() {
         initComponents();
         seleccionarMateria();
@@ -61,6 +61,7 @@ public class Horario extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollBar1 = new javax.swing.JScrollBar();
         jLabel2 = new javax.swing.JLabel();
         horaEntrada = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
@@ -73,30 +74,32 @@ public class Horario extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         cancelar = new javax.swing.JButton();
         dia = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel2.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel2.setText("Hora entrada");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, -1, 20));
 
+        horaEntrada.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         horaEntrada.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22" }));
-        getContentPane().add(horaEntrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, 40, -1));
 
+        jLabel3.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel3.setText("Hora Salida");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, -1, 20));
 
+        horaSalida.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         horaSalida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22" }));
-        getContentPane().add(horaSalida, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 140, 40, -1));
 
+        jbtn_Nuevo.setBackground(new java.awt.Color(204, 255, 204));
+        jbtn_Nuevo.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jbtn_Nuevo.setText("Agregar nuevo");
         jbtn_Nuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtn_NuevoActionPerformed(evt);
             }
         });
-        getContentPane().add(jbtn_Nuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 270, 220, 40));
 
+        horarios.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         horarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -110,42 +113,101 @@ public class Horario extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(horarios);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(296, 11, 870, -1));
-
+        jbtn_editar.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jbtn_editar.setText("Actualizar");
         jbtn_editar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtn_editarActionPerformed(evt);
             }
         });
-        getContentPane().add(jbtn_editar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, 100, 30));
 
+        jbtn_Eliminar.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jbtn_Eliminar.setText("Borrar");
         jbtn_Eliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtn_EliminarActionPerformed(evt);
             }
         });
-        getContentPane().add(jbtn_Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 330, 100, 30));
 
+        jButton4.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jButton4.setText("Volver");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 380, 100, 30));
 
+        cancelar.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         cancelar.setText("Cancelar");
         cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelarActionPerformed(evt);
             }
         });
-        getContentPane().add(cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 380, 100, 30));
 
+        dia.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         dia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "LUNES", "MARTES", "MIÉRCOLES", "JUEVES", "VIERNES", "SÁBADO", "DOMINGO" }));
-        getContentPane().add(dia, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 120, -1, -1));
+
+        jLabel1.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jLabel1.setText("Dia");
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 780, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(180, 180, 180)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(17, 17, 17)
+                        .addComponent(horaEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel3)
+                        .addGap(17, 17, 17)
+                        .addComponent(horaSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(dia, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jbtn_Nuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jbtn_editar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(jbtn_Eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(70, 70, 70)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(horaEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(horaSalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(75, 75, 75)
+                .addComponent(jbtn_Nuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jbtn_editar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbtn_Eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addComponent(cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -157,9 +219,9 @@ public class Horario extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jbtn_NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_NuevoActionPerformed
-        
-            agregarHorario();
-        
+
+        agregarHorario();
+
     }//GEN-LAST:event_jbtn_NuevoActionPerformed
 
     private void jbtn_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_editarActionPerformed
@@ -219,18 +281,53 @@ public class Horario extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> horaSalida;
     private javax.swing.JTable horarios;
     private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbtn_Eliminar;
     private javax.swing.JButton jbtn_Nuevo;
     private javax.swing.JButton jbtn_editar;
     // End of variables declaration//GEN-END:variables
 
-
-
-    
     public void cargarTablaHorarios() {
+        try {
+            int i = 0;
+            String[] horariosList = new String[4];
+            modelo = new DefaultTableModel(null, titulos);
+            String sql = "select * from horarios";
+            Statement psd = cc.createStatement();
+            ResultSet rs = psd.executeQuery(sql);
+
+            while (rs.next()) { //Contamos cuantos datos hay
+                i++;
+            }
+            horasEntrada = new String[i]; //Creamos los array con la cantidad de datos que haya
+            horasSalida = new String[i];
+            i = 0;
+            rs = psd.executeQuery(sql); //ejecutamos de nuevo la consulta
+            while (rs.next()) {
+                horariosList[0] = rs.getString("id");
+                horariosList[1] = rs.getString("horaEntrada");
+                horasEntrada[i] = rs.getString("horaEntrada");
+                horariosList[2] = rs.getString("horaSalida"); //Enviamos el ID y nos devuelve el nombre
+                horasSalida[i] = rs.getString("horaSalida");
+                horariosList[3] = rs.getDate("dia").toString(); //Lo mismo de arriba
+                modelo.addRow(horariosList);
+                i++;
+
+            }
+            horarios.setModel(modelo);
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "No hay horarios que mostrar");
+
+        }
+
+    }
+
+    public void cargarTablaHorarios1() {
         modelo = new DefaultTableModel(null, titulos);
         JSONArray respuesta = cliente.get("http://localhost:8080/horario/obtenerHorarios");//Con getResponse() consumimos la api
         String[] datos = new String[4];
@@ -240,15 +337,15 @@ public class Horario extends javax.swing.JFrame {
             datos[0] = String.valueOf(jsonObject.getInt("id")); //Guardamos el valor del jsonObject en un array
             datos[1] = String.valueOf(jsonObject.getInt("horaEntrada"));
             datos[2] = String.valueOf(String.valueOf(jsonObject.getInt("horaSalida")));
-            datos[3] = String.valueOf(jsonObject.getString("dia"));
+            datos[3] = String.valueOf(jsonObject.get("dia"));
             modelo.addRow(datos);
         }
 
         horarios.setModel(modelo);
-        
+
         columnModel = horarios.getColumnModel();
         columnModel.getColumn(0).setPreferredWidth(1);//Ajustamos el tamaño de la columna 0
-        
+
     }
 
     private void agregarHorario() {
@@ -290,28 +387,28 @@ public class Horario extends javax.swing.JFrame {
 
     private void editarMateria() {
         try {
-                String sql = "Update horarios set horaEntrada='" + horaEntrada.getSelectedItem() + "', horaSalida='" + horaSalida.getSelectedItem() + "', dia='" + dia.getSelectedItem()+ "' WHERE id='" + idActual + "'";
-                PreparedStatement psd = cn.prepareStatement(sql);
+            String sql = "Update horarios set horaEntrada='" + horaEntrada.getSelectedItem() + "', horaSalida='" + horaSalida.getSelectedItem() + "', dia='" + dia.getSelectedItem() + "' WHERE id='" + idActual + "'";
+            PreparedStatement psd = cn.prepareStatement(sql);
 
-                int n = psd.executeUpdate();
+            int n = psd.executeUpdate();
 
-                if (n > 0) {
-                    JOptionPane.showMessageDialog(null, "Actualizo Correctamente");
-                    cargarTablaHorarios();
-                    cerrarEdicion();
-                }
-            } catch (SQLException ex) {
-                System.out.println("ERROR: " + ex);
+            if (n > 0) {
+                JOptionPane.showMessageDialog(null, "Actualizo Correctamente");
+                cargarTablaHorarios();
+                cerrarEdicion();
             }
+        } catch (SQLException ex) {
+            System.out.println("ERROR: " + ex);
         }
+    }
 
     private void cerrarEdicion() {
-        
+
         jbtn_editar.setEnabled(false);
         jbtn_Eliminar.setEnabled(false);
         cancelar.setEnabled(false);
         jbtn_Nuevo.setEnabled(true);
-    
+
     }
 
     private void borrarMateria() {
@@ -337,7 +434,6 @@ public class Horario extends javax.swing.JFrame {
             }
         }
     }
-    
 
     private void seleccionarMateria() {
         horarios.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -354,42 +450,41 @@ public class Horario extends javax.swing.JFrame {
                 }
             }
 
-            
         });
     }
-    
+
     private int devolverIndex(String nombre) {
         for (int i = 0; i < 14; i++) {
             if (horaEntrada.getItemAt(i).equals(nombre)) {//Si el nombre es igual que el que se encuentra en el combo devuelve la posicion del numero en el combo
-            return i;
+                return i;
             }
         }
         return 0;
     }
-    
+
     private int devolverIndexDia(String dia) {
-        
-            switch (dia){
-                case "LUNES":
-                    return 0;
-                case "MARTES":
-                    return 1;
-                case "MIÉRCOLES":
-                    return 2;
-                case "JUEVES":
-                    return 3;
-                case "VIERNES":
-                    return 4;
-                case "SÁBADO":
-                    return 5;
-                case "DOMINGO":
-                    return 6;
-                default:
-                    return 0;
-            
+
+        switch (dia) {
+            case "LUNES":
+                return 0;
+            case "MARTES":
+                return 1;
+            case "MIÉRCOLES":
+                return 2;
+            case "JUEVES":
+                return 3;
+            case "VIERNES":
+                return 4;
+            case "SÁBADO":
+                return 5;
+            case "DOMINGO":
+                return 6;
+            default:
+                return 0;
+
         }
     }
-    
+
     private void activarBotonesEdicion() {
         jbtn_editar.setEnabled(true);
         jbtn_Eliminar.setEnabled(true);

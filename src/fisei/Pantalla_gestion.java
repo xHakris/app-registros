@@ -63,6 +63,8 @@ public class Pantalla_gestion extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         auxiliar = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -102,20 +104,20 @@ public class Pantalla_gestion extends javax.swing.JFrame {
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 260, -1, 40));
 
         periodo.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
-        periodo.setText("Periodo 2023 Abril - Septiembre 2023");
-        getContentPane().add(periodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 110, -1, -1));
+        periodo.setText("2023 Abril - Septiembre 2023");
+        getContentPane().add(periodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 140, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         jLabel2.setText("Fecha actual:");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 150, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 170, -1, -1));
 
         fecha.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         fecha.setText("24-07-2023");
-        getContentPane().add(fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(1220, 150, -1, -1));
+        getContentPane().add(fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 170, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabel4.setText("FACULTAD DE INGENIERIA EN SISTEMAS, ELECTRONICA E INDUSTRIAL");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 0, -1, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 20, -1, -1));
 
         bloqueCond.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         bloqueCond.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ninguno", "Bloque 1", "Bloque 2" }));
@@ -124,7 +126,7 @@ public class Pantalla_gestion extends javax.swing.JFrame {
                 bloqueCondItemStateChanged(evt);
             }
         });
-        getContentPane().add(bloqueCond, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 210, 80, -1));
+        getContentPane().add(bloqueCond, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 210, 100, -1));
 
         jornadaCond.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jornadaCond.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Niguno", "Mañana", "Tarde" }));
@@ -133,12 +135,12 @@ public class Pantalla_gestion extends javax.swing.JFrame {
                 jornadaCondItemStateChanged(evt);
             }
         });
-        getContentPane().add(jornadaCond, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 210, 70, -1));
+        getContentPane().add(jornadaCond, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 210, 100, -1));
 
         dia.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         dia.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         dia.setText("Reporte del dia LUNES");
-        getContentPane().add(dia, new org.netbeans.lib.awtextra.AbsoluteConstraints(558, 60, 360, -1));
+        getContentPane().add(dia, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 70, 360, -1));
 
         jLabel3.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel3.setText("Filtrar por");
@@ -146,7 +148,7 @@ public class Pantalla_gestion extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel6.setText("Bloque");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 180, 50, -1));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 180, 50, -1));
 
         jLabel7.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel7.setText("Jornada");
@@ -179,7 +181,7 @@ public class Pantalla_gestion extends javax.swing.JFrame {
                 jButton5ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 260, 170, 40));
+        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 260, 160, 40));
 
         nivelCond.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         nivelCond.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ninguno", "1", "2", "3", "4", "5", "6", "7", "8", "9" }));
@@ -188,18 +190,32 @@ public class Pantalla_gestion extends javax.swing.JFrame {
                 nivelCondItemStateChanged(evt);
             }
         });
-        getContentPane().add(nivelCond, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 210, 80, -1));
+        getContentPane().add(nivelCond, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 210, 100, -1));
 
         jLabel8.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel8.setText("Nivel");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 180, -1, -1));
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 180, -1, -1));
 
         auxiliar.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        getContentPane().add(auxiliar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 140, 310, -1));
+        getContentPane().add(auxiliar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 140, 340, -1));
 
         jLabel9.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel9.setText("Nombre del Auxiliar*");
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, -1, -1));
+
+        jButton4.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jButton4.setText("Agregar Reporte");
+        jButton4.setEnabled(false);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 260, 160, 40));
+
+        jLabel1.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+        jLabel1.setText("Periodo:");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 140, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -300,6 +316,12 @@ public class Pantalla_gestion extends javax.swing.JFrame {
         imprimirSolo();
     }//GEN-LAST:event_reporteClickActionPerformed
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        Reporte r = new Reporte();
+        r.show();
+        this.dispose();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -343,7 +365,9 @@ public class Pantalla_gestion extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
