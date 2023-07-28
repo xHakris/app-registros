@@ -290,30 +290,29 @@ public class Pantalla_gestion extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
 
         for (int i = 0; i < reportes.getRowCount(); i++) {
-            if (i % 2 != 0) {
+            if (i % 2 == 0) {
                 //pares
-                fila = reportes.getSelectedRow();
-                lab1 = reportes.getValueAt(fila, 1).toString();
-                docente1 = reportes.getValueAt(fila, 2).toString();
-                materia1 = reportes.getValueAt(fila, 3).toString();
-                paralelo1 = reportes.getValueAt(fila, 4).toString();
-                nivel1 = reportes.getValueAt(fila, 5).toString();
-                carrera1 = reportes.getValueAt(fila, 6).toString();
-                ingreso1 = reportes.getValueAt(fila, 8).toString();
-                salida1 = reportes.getValueAt(fila, 9).toString();
+                lab1 = reportes.getValueAt(i, 1).toString();
+                docente1 = reportes.getValueAt(i, 2).toString();
+                materia1 = reportes.getValueAt(i, 3).toString();
+                paralelo1 = reportes.getValueAt(i, 4).toString();
+                nivel1 = reportes.getValueAt(i, 5).toString();
+                carrera1 = reportes.getValueAt(i, 6).toString();
+                ingreso1 = reportes.getValueAt(i, 8).toString();
+                salida1 = reportes.getValueAt(i, 9).toString();
                 i++;
+                
             }
-            if(i % 2 == 0) {
+            if(i % 2 != 0 && i<reportes.getRowCount()) { //Controlamos q sea par y que el i no haya superado el rango de reportes
                 //impares
-                fila = reportes.getSelectedRow();
-                lab2 = reportes.getValueAt(fila, 1).toString();
-                docente2 = reportes.getValueAt(fila, 2).toString();
-                materia2 = reportes.getValueAt(fila, 3).toString();
-                paralelo2 = reportes.getValueAt(fila, 4).toString();
-                nivel2 = reportes.getValueAt(fila, 5).toString();
-                carrera2 = reportes.getValueAt(fila, 6).toString();
-                ingreso2 = reportes.getValueAt(fila, 8).toString();
-                salida2 = reportes.getValueAt(fila, 9).toString();
+                lab2 = reportes.getValueAt(i, 1).toString();
+                docente2 = reportes.getValueAt(i, 2).toString();
+                materia2 = reportes.getValueAt(i, 3).toString();
+                paralelo2 = reportes.getValueAt(i, 4).toString();
+                nivel2 = reportes.getValueAt(i, 5).toString();
+                carrera2 = reportes.getValueAt(i, 6).toString();
+                ingreso2 = reportes.getValueAt(i, 8).toString();
+                salida2 = reportes.getValueAt(i, 9).toString();
             }
             try {
                 Map parametros = new HashMap();
