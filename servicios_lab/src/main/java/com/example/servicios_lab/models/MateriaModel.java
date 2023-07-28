@@ -14,6 +14,8 @@ public class MateriaModel {
     private int docenteID;
     @Column
     private int carreraID;
+    @Column
+    private int nivel;
 
     public Long getId() {
         return id;
@@ -46,4 +48,14 @@ public class MateriaModel {
     public void setCarreraID(int carreraID) {
         this.carreraID = carreraID;
     }
+
+    public int getNivel() {
+        return nivel;
+    }
+
+    public void setNivel(int nivel) {
+        this.nivel = nivel;
+    }
+
+    
 }
