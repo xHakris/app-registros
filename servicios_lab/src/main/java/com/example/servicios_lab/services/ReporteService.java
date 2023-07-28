@@ -11,14 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import com.example.servicios_lab.DTO.ReporteDTO;
 import com.example.servicios_lab.models.HorarioModel;
 import com.example.servicios_lab.models.LaboratorioModel;
 import com.example.servicios_lab.models.MateriaModel;
 import com.example.servicios_lab.models.ParaleloModel;
 import com.example.servicios_lab.models.PeriodoAcademicoModel;
 import com.example.servicios_lab.models.ReporteModel;
-import com.example.servicios_lab.repositories.IReporteRepository;
 
 @Service
 public class ReporteService {
@@ -51,8 +49,8 @@ public class ReporteService {
             reporte.setPeriodo(periodo);
 
             HorarioModel horario = new HorarioModel();
-            horario.setHoraEntrada(rs.getString("horaEntrada"));
-            horario.setHoraSalida(rs.getString("horaSalida"));
+            //horario.setHoraEntrada(rs.getString("horaEntrada"));
+            // horario.setHoraSalida(rs.getString("horaSalida"));
             reporte.setHorario(horario);
 
             LaboratorioModel laboratorio = new LaboratorioModel();
