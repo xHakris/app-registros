@@ -26,8 +26,8 @@ import javax.swing.table.TableColumnModel;
 public class Horario extends javax.swing.JFrame {
     
     DefaultTableModel modelo = new DefaultTableModel();
-    String[] idsDocentes, docentesList, carrerasList, idsCarreras;
-    DefaultComboBoxModel pofesoresModel = new DefaultComboBoxModel();
+    String[] idsHorarios, horasEntrada, horasSalida;
+    DefaultComboBoxModel horarioModel = new DefaultComboBoxModel();
     DefaultComboBoxModel carrerasModel = new DefaultComboBoxModel();
     String doc;
     Integer fila, idActual;
@@ -37,10 +37,8 @@ public class Horario extends javax.swing.JFrame {
     
     public Horario() {
         initComponents();
-        cargarProfesores();
-        cargarCarreras();
         seleccionarMateria();
-        cargarTablaMaterias();
+        cargarTablaHorarios();
         this.setLocationRelativeTo(null);
         cerrarEdicion();
     }
@@ -60,24 +58,26 @@ public class Horario extends javax.swing.JFrame {
         hSalida = new javax.swing.JComboBox<>();
         jbtn_Nuevo = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        materias = new javax.swing.JTable();
+        horarios = new javax.swing.JTable();
         jbtn_editar = new javax.swing.JButton();
         jbtn_Eliminar = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         cancelar = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        dia = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setText("Docente");
+        jLabel2.setText("Hora entrada");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 98, -1, -1));
 
+        hEntrada.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22" }));
         getContentPane().add(hEntrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 123, 201, -1));
 
-        jLabel3.setText("Carrera");
+        jLabel3.setText("Hora Salida");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 161, -1, -1));
 
+        hSalida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22" }));
         getContentPane().add(hSalida, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 186, 201, -1));
 
         jbtn_Nuevo.setText("Agregar nuevo");
@@ -86,9 +86,9 @@ public class Horario extends javax.swing.JFrame {
                 jbtn_NuevoActionPerformed(evt);
             }
         });
-        getContentPane().add(jbtn_Nuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 273, 220, 40));
+        getContentPane().add(jbtn_Nuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 270, 220, 40));
 
-        materias.setModel(new javax.swing.table.DefaultTableModel(
+        horarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -99,7 +99,7 @@ public class Horario extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(materias);
+        jScrollPane1.setViewportView(horarios);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(296, 11, 870, -1));
 
@@ -135,8 +135,8 @@ public class Horario extends javax.swing.JFrame {
         });
         getContentPane().add(cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 380, 100, 30));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "LUNES", "MARTES", "MIÉRCOLES", "JUEVES", "VIERNES", "SÁBADO", "DOMINGO" }));
-        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, -1, -1));
+        dia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "LUNES", "MARTES", "MIÉRCOLES", "JUEVES", "VIERNES", "SÁBADO", "DOMINGO" }));
+        getContentPane().add(dia, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -148,11 +148,9 @@ public class Horario extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jbtn_NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_NuevoActionPerformed
-        if (nombreMateria.equals("") || nombreMateria.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Ingrese un nombre para la materia");
-        }else{
+        
             agregarMateria();
-        }
+        
     }//GEN-LAST:event_jbtn_NuevoActionPerformed
 
     private void jbtn_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_editarActionPerformed
@@ -207,92 +205,50 @@ public class Horario extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelar;
+    private javax.swing.JComboBox<String> dia;
     private javax.swing.JComboBox<String> hEntrada;
     private javax.swing.JComboBox<String> hSalida;
+    private javax.swing.JTable horarios;
     private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbtn_Eliminar;
     private javax.swing.JButton jbtn_Nuevo;
     private javax.swing.JButton jbtn_editar;
-    private javax.swing.JTable materias;
     // End of variables declaration//GEN-END:variables
 
-    private void cargarProfesores() {
-        int i=0;
-        try {
-            String sql = "select * from docentes";
-            Statement psd = cn.createStatement();
-            ResultSet rs = psd.executeQuery(sql);
-            while (rs.next()) {
-                i++;
-            }
-            docentesList = new String[i];
-            idsDocentes = new String[i];
-            
-            rs = psd.executeQuery(sql);
-            i = 0;
-            while (rs.next()) {
-                docentesList[i] =  rs.getString("nombre");
-                idsDocentes[i] = rs.getString("id");
-                i++;
-                
-            }
-             pofesoresModel =  new DefaultComboBoxModel(docentesList);
-             hEntrada.setModel(pofesoresModel);
-            
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "No hay docentes que mostrar");
-        }
-    }
+
+
     
-    private void cargarCarreras() {
-        int i=0;
+    public void cargarTablaHorarios() {
         try {
-            String sql = "select * from carrera";
-            Statement psd = cn.createStatement();
-            ResultSet rs = psd.executeQuery(sql);
-            while (rs.next()) {
-                i++;
-            }
-            carrerasList = new String[i];
-            idsCarreras = new String[i];
-            
-            rs = psd.executeQuery(sql);
-            i = 0;
-            while (rs.next()) {
-                carrerasList[i] =  rs.getString("nombre");
-                idsCarreras[i] = rs.getString("id");
-                i++;
-                
-            }
-             carrerasModel =  new DefaultComboBoxModel(carrerasList);
-             hSalida.setModel(carrerasModel);
-            
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "No hay carreras que mostrar");
-        }
-    }
-    
-    public void cargarTablaMaterias() {
-        try {
-            String[] titulos = {"#", "Materia", "Docente", "Carrera"};
-            String[] materiasList = new String[4];
+            int i = 0;
+            String[] titulos = {"#", "Hora de entrada", "Hora de salida", "Dia"};
+            String[] horariosList = new String[4];
             modelo = new DefaultTableModel(null, titulos);
-            String sql = "select * from materia";
+            String sql = "select * from horarios";
             Statement psd = cn.createStatement();
             ResultSet rs = psd.executeQuery(sql);
-            while (rs.next()) {
-                materiasList[0] = rs.getString("id");
-                materiasList[1] = rs.getString("nombre");
-                materiasList[2] = devolverDocente(rs.getString("docenteID")); //Enviamos el ID y nos devuelve el nombre
-                materiasList[3] = devolverCarrera(rs.getString("carreraID")); //Lo mismo de arriba
-                modelo.addRow(materiasList);
+            while (rs.next()) { //Contamos cuantos datos hay
+                i++;
             }
-            materias.setModel(modelo);
-            columnModel = materias.getColumnModel();
+            horasEntrada = new String[i]; //Creamos los array con la cantidad de datos que haya
+            horasSalida = new String[i];
+            i=0;
+            rs = psd.executeQuery(sql); //ejecutamos de nuevo la consulta
+            while (rs.next()) {
+                horariosList[0] = rs.getString("id");
+                horariosList[1] = rs.getString("horaEntrada");
+                horasEntrada[i] = rs.getString("horaEntrada");
+                horariosList[2] = rs.getString("horaSalida"); //Enviamos el ID y nos devuelve el nombre
+                horasSalida[i] = rs.getString("horaSalida");
+                horariosList[3] = rs.getString("dia"); //Lo mismo de arriba
+                modelo.addRow(horariosList);
+                i++;
+            }
+            horarios.setModel(modelo);
+            columnModel = horarios.getColumnModel();
             columnModel.getColumn(0).setPreferredWidth(1);//Ajustamos el tamaño de la columna 0
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
@@ -301,17 +257,16 @@ public class Horario extends javax.swing.JFrame {
 
     private void agregarMateria() {
         try {
-            String sql = "insert into materia values(?,?,?,?)";
+            String sql = "insert into horarios values(?,?,?,?)";
             PreparedStatement psd = cn.prepareStatement(sql);
             psd.setString(1, null);
-            psd.setString(2, nombreMateria.getText());
-            psd.setInt(3, devolverIdDocente(String.valueOf(hEntrada.getSelectedItem())));
-            psd.setInt(4, devolverIdCarrera(String.valueOf(hSalida.getSelectedItem())));
+            psd.setInt(2, Integer.valueOf(hEntrada.getSelectedItem().toString()));
+            psd.setInt(3, Integer.valueOf(hSalida.getSelectedItem().toString()));
+            psd.setString(4, dia.getSelectedItem().toString());
             int r = psd.executeUpdate();
             if (r > 0) {
-                JOptionPane.showMessageDialog(null, "Se ha agregado la materia\n'"+nombreMateria.getText()+"'\ncorrectamente");
-                cargarTablaMaterias();
-                BorrarTxt();
+                JOptionPane.showMessageDialog(null, "El horario se ha agregado correctamente");
+                cargarTablaHorarios();
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
@@ -319,28 +274,29 @@ public class Horario extends javax.swing.JFrame {
     }
 
     private void editarMateria() {
-        if (nombreMateria.getText().isEmpty() || nombreMateria.equals("")) {
-
-            JOptionPane.showMessageDialog(this, "Debe un nombre de materia");
-            nombreMateria.requestFocus();
-
-        } else {
-            try {
-                String sql = "Update materia set nombre='" + nombreMateria.getText() + "', docenteID='" + devolverIdDocente(String.valueOf(hEntrada.getSelectedItem())) + "', carreraID='" + devolverIdCarrera(String.valueOf(hSalida.getSelectedItem()))+ "' WHERE id='" + idActual + "'";
+        try {
+                String sql = "Update horarios set horaEntrada='" + hEntrada.getSelectedItem() + "', horaSalida='" + hSalida.getSelectedItem() + "', dia='" + dia.getSelectedItem()+ "' WHERE id='" + idActual + "'";
                 PreparedStatement psd = cn.prepareStatement(sql);
 
                 int n = psd.executeUpdate();
 
                 if (n > 0) {
                     JOptionPane.showMessageDialog(null, "Actualizo Correctamente");
-                    cargarTablaMaterias();
-                    BorrarTxt();
+                    cargarTablaHorarios();
                     cerrarEdicion();
                 }
             } catch (SQLException ex) {
                 System.out.println("ERROR: " + ex);
             }
         }
+
+    private void cerrarEdicion() {
+        
+        jbtn_editar.setEnabled(false);
+        jbtn_Eliminar.setEnabled(false);
+        cancelar.setEnabled(false);
+        jbtn_Nuevo.setEnabled(true);
+    
     }
 
     private void borrarMateria() {
@@ -349,7 +305,7 @@ public class Horario extends javax.swing.JFrame {
                 "Borrar registros", JOptionPane.WARNING_MESSAGE,
                 JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
             try {
-                String sql = "DELETE  FROM materia WHERE id = '" + idActual + "'";
+                String sql = "DELETE  FROM horarios WHERE id = '" + idActual + "'";
 
                 PreparedStatement psd = cn.prepareStatement(sql);
 
@@ -357,8 +313,7 @@ public class Horario extends javax.swing.JFrame {
 
                 if (n > 0) {
                     JOptionPane.showMessageDialog(null, "Se elimino correctamente");
-                    cargarTablaMaterias();
-                    BorrarTxt();
+                    cargarTablaHorarios();
                     cerrarEdicion();
                 }
 
@@ -368,22 +323,19 @@ public class Horario extends javax.swing.JFrame {
         }
     }
     
-    private void BorrarTxt() {
-        nombreMateria.setText("");
-    }
 
     private void seleccionarMateria() {
-        materias.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+        horarios.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 activarBotonesEdicion();
-                if (materias.getSelectedRow() != -1) {
+                if (horarios.getSelectedRow() != -1) {
                     jbtn_Nuevo.setEnabled(false);
-                    fila = materias.getSelectedRow();
-                    nombreMateria.setText(materias.getValueAt(fila, 1).toString());
-                    hEntrada.setSelectedIndex(devolverIndexDocente(materias.getValueAt(fila, 2).toString()));
-                    hSalida.setSelectedIndex(devolverIndexCarrera(materias.getValueAt(fila, 3).toString()));
-                    idActual = Integer.valueOf(materias.getValueAt(fila, 0).toString()); //Guardamos el ID para actualizar o eliminar posteriormente
+                    fila = horarios.getSelectedRow();
+                    hEntrada.setSelectedIndex(devolverIndex(horarios.getValueAt(fila, 1).toString()));
+                    hSalida.setSelectedIndex(devolverIndex(horarios.getValueAt(fila, 2).toString()));
+                    dia.setSelectedIndex(devolverIndexDia(horarios.getValueAt(fila, 3).toString()));
+                    idActual = Integer.valueOf(horarios.getValueAt(fila, 0).toString()); //Guardamos el ID para actualizar o eliminar posteriormente
                 }
             }
 
@@ -391,42 +343,36 @@ public class Horario extends javax.swing.JFrame {
         });
     }
     
-    private String devolverDocente(String id){
-        
-        for (int i = 0; i < docentesList.length; i++) {
-            if (idsDocentes[i].equals(id)) {
-            return docentesList[i];
-            }
-        }
-        return "";
-    }
-    
-    private String devolverCarrera(String id){
-        
-        for (int i = 0; i < carrerasList.length; i++) {
-            if (idsCarreras[i].equals(id)) {
-            return carrerasList[i];
-            }
-        }
-        return "";
-    }
-    
-    private int devolverIndexDocente(String nombre) {
-        for (int i = 0; i < docentesList.length; i++) {
-            if (docentesList[i].equals(nombre)) {
+    private int devolverIndex(String nombre) {
+        for (int i = 0; i < 14; i++) {
+            if (hEntrada.getItemAt(i).equals(nombre)) {
             return i;
             }
         }
         return 0;
     }
     
-    private int devolverIndexCarrera(String nombre) {
-        for (int i = 0; i < carrerasList.length; i++) {
-            if (carrerasList[i].equals(nombre)) {
-            return i;
-            }
+    private int devolverIndexDia(String dia) {
+        
+            switch (dia){
+                case "LUNES":
+                    return 0;
+                case "MARTES":
+                    return 1;
+                case "MIÉRCOLES":
+                    return 2;
+                case "JUEVES":
+                    return 3;
+                case "VIERNES":
+                    return 4;
+                case "SÁBADO":
+                    return 5;
+                case "DOMINGO":
+                    return 6;
+                default:
+                    return 0;
+            
         }
-        return 0;
     }
     
     private void activarBotonesEdicion() {
@@ -435,27 +381,10 @@ public class Horario extends javax.swing.JFrame {
         cancelar.setEnabled(true);
     }
 
-    private void cerrarEdicion() {
-        jbtn_editar.setEnabled(false);
-        jbtn_Eliminar.setEnabled(false);
-        cancelar.setEnabled(false);
-        nombreMateria.setText("");
-        jbtn_Nuevo.setEnabled(true);
-    }
-
     private int devolverIdDocente(String nombre) {
-        for (int i = 0; i < docentesList.length; i++) {
-            if (docentesList[i].equals(nombre)) {
-            return Integer.valueOf(idsDocentes[i]);
-            }
-        }
-        return 0;
-    }
-    
-    private int devolverIdCarrera(String nombre) {
-        for (int i = 0; i < carrerasList.length; i++) {
-            if (carrerasList[i].equals(nombre)) {
-            return Integer.valueOf(idsCarreras[i]);
+        for (int i = 0; i < horasEntrada.length; i++) {
+            if (horasEntrada[i].equals(nombre)) {
+            return Integer.valueOf(idsHorarios[i]);
             }
         }
         return 0;

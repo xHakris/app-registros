@@ -78,6 +78,11 @@ public Pantalla_gestion() {
         });
 
         jButton2.setText("Editar Horarios");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Periodo 2023 Abril - Septiembre");
 
@@ -214,6 +219,12 @@ public Pantalla_gestion() {
         m.show();
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        Horario m = new Horario();
+        m.show();
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
