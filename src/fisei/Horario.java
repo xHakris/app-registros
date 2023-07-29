@@ -345,7 +345,7 @@ public class Horario extends javax.swing.JFrame {
     
     private int devolverIndex(String nombre) {
         for (int i = 0; i < 14; i++) {
-            if (hEntrada.getItemAt(i).equals(nombre)) {
+            if (hEntrada.getItemAt(i).equals(nombre)) {//Si el nombre es igual que el que se encuentra en el combo devuelve la posicion del numero en el combo
             return i;
             }
         }
@@ -381,12 +381,4 @@ public class Horario extends javax.swing.JFrame {
         cancelar.setEnabled(true);
     }
 
-    private int devolverIdDocente(String nombre) {
-        for (int i = 0; i < horasEntrada.length; i++) {
-            if (horasEntrada[i].equals(nombre)) {
-            return Integer.valueOf(idsHorarios[i]);
-            }
-        }
-        return 0;
-    }
 }

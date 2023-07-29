@@ -26,9 +26,6 @@ import javax.swing.table.TableColumnModel;
 public class Docente extends javax.swing.JFrame {
     
     DefaultTableModel modelo = new DefaultTableModel();
-    String[] idsDocentes, docentesList, carrerasList, idsCarreras;
-    DefaultComboBoxModel pofesoresModel = new DefaultComboBoxModel();
-    DefaultComboBoxModel carrerasModel = new DefaultComboBoxModel();
     String doc;
     Integer fila, idActual;
     Conexion cc = new Conexion();
@@ -37,10 +34,8 @@ public class Docente extends javax.swing.JFrame {
     
     public Docente() {
         initComponents();
-        cargarProfesores();
-        cargarCarreras();
-        seleccionarMateria();
-        cargarTablaMaterias();
+        seleccionarDocente();
+        cargarTablaDocentes();
         this.setLocationRelativeTo(null);
         cerrarEdicion();
     }
@@ -54,15 +49,11 @@ public class Docente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        nombreMateria = new javax.swing.JTextField();
+        nombreDocente = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        docente = new javax.swing.JComboBox<>();
-        jLabel3 = new javax.swing.JLabel();
-        carrera = new javax.swing.JComboBox<>();
         jbtn_Nuevo = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        materias = new javax.swing.JTable();
+        docentes = new javax.swing.JTable();
         jbtn_editar = new javax.swing.JButton();
         jbtn_Eliminar = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
@@ -71,25 +62,15 @@ public class Docente extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        nombreMateria.addActionListener(new java.awt.event.ActionListener() {
+        nombreDocente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nombreMateriaActionPerformed(evt);
+                nombreDocenteActionPerformed(evt);
             }
         });
-        getContentPane().add(nombreMateria, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 201, -1));
+        getContentPane().add(nombreDocente, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 201, -1));
 
         jLabel1.setText("Nombre de la materia");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, -1, -1));
-
-        jLabel2.setText("Docente");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 98, -1, -1));
-
-        getContentPane().add(docente, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 123, 201, -1));
-
-        jLabel3.setText("Carrera");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 161, -1, -1));
-
-        getContentPane().add(carrera, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 186, 201, -1));
 
         jbtn_Nuevo.setText("Agregar nuevo");
         jbtn_Nuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -99,7 +80,7 @@ public class Docente extends javax.swing.JFrame {
         });
         getContentPane().add(jbtn_Nuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 283, 220, 30));
 
-        materias.setModel(new javax.swing.table.DefaultTableModel(
+        docentes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -110,7 +91,7 @@ public class Docente extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(materias);
+        jScrollPane1.setViewportView(docentes);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(296, 11, 870, -1));
 
@@ -149,9 +130,9 @@ public class Docente extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void nombreMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreMateriaActionPerformed
+    private void nombreDocenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreDocenteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_nombreMateriaActionPerformed
+    }//GEN-LAST:event_nombreDocenteActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         Pantalla_gestion pg = new Pantalla_gestion();
@@ -160,19 +141,19 @@ public class Docente extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jbtn_NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_NuevoActionPerformed
-        if (nombreMateria.equals("") || nombreMateria.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Ingrese un nombre para la materia");
+        if (nombreDocente.equals("") || nombreDocente.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Ingrese un nombre para el docente");
         }else{
-            agregarMateria();
+            agregarDocente();
         }
     }//GEN-LAST:event_jbtn_NuevoActionPerformed
 
     private void jbtn_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_editarActionPerformed
-        editarMateria();
+        editarDocente();
     }//GEN-LAST:event_jbtn_editarActionPerformed
 
     private void jbtn_EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_EliminarActionPerformed
-        borrarMateria();
+        borrarDocente();
     }//GEN-LAST:event_jbtn_EliminarActionPerformed
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
@@ -217,111 +198,47 @@ public class Docente extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelar;
-    private javax.swing.JComboBox<String> carrera;
-    private javax.swing.JComboBox<String> docente;
+    private javax.swing.JTable docentes;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbtn_Eliminar;
     private javax.swing.JButton jbtn_Nuevo;
     private javax.swing.JButton jbtn_editar;
-    private javax.swing.JTable materias;
-    private javax.swing.JTextField nombreMateria;
+    private javax.swing.JTextField nombreDocente;
     // End of variables declaration//GEN-END:variables
-
-    private void cargarProfesores() {
-        int i=0;
+    
+    public void cargarTablaDocentes() {
         try {
+            String[] titulos = {"#", "Nombre del docente"};
+            String[] docentesList = new String[2];
+            modelo = new DefaultTableModel(null, titulos);
             String sql = "select * from docentes";
             Statement psd = cn.createStatement();
             ResultSet rs = psd.executeQuery(sql);
             while (rs.next()) {
-                i++;
+                docentesList[0] = rs.getString("id");
+                docentesList[1] = rs.getString("nombre");
+                modelo.addRow(docentesList);
             }
-            docentesList = new String[i];
-            idsDocentes = new String[i];
-            
-            rs = psd.executeQuery(sql);
-            i = 0;
-            while (rs.next()) {
-                docentesList[i] =  rs.getString("nombre");
-                idsDocentes[i] = rs.getString("id");
-                i++;
-                
-            }
-             pofesoresModel =  new DefaultComboBoxModel(docentesList);
-             docente.setModel(pofesoresModel);
-            
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "No hay docentes que mostrar");
-        }
-    }
-    
-    private void cargarCarreras() {
-        int i=0;
-        try {
-            String sql = "select * from carrera";
-            Statement psd = cn.createStatement();
-            ResultSet rs = psd.executeQuery(sql);
-            while (rs.next()) {
-                i++;
-            }
-            carrerasList = new String[i];
-            idsCarreras = new String[i];
-            
-            rs = psd.executeQuery(sql);
-            i = 0;
-            while (rs.next()) {
-                carrerasList[i] =  rs.getString("nombre");
-                idsCarreras[i] = rs.getString("id");
-                i++;
-                
-            }
-             carrerasModel =  new DefaultComboBoxModel(carrerasList);
-             carrera.setModel(carrerasModel);
-            
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "No hay carreras que mostrar");
-        }
-    }
-    
-    public void cargarTablaMaterias() {
-        try {
-            String[] titulos = {"#", "Materia", "Docente", "Carrera"};
-            String[] materiasList = new String[4];
-            modelo = new DefaultTableModel(null, titulos);
-            String sql = "select * from materia";
-            Statement psd = cn.createStatement();
-            ResultSet rs = psd.executeQuery(sql);
-            while (rs.next()) {
-                materiasList[0] = rs.getString("id");
-                materiasList[1] = rs.getString("nombre");
-                materiasList[2] = devolverDocente(rs.getString("docenteID")); //Enviamos el ID y nos devuelve el nombre
-                materiasList[3] = devolverCarrera(rs.getString("carreraID")); //Lo mismo de arriba
-                modelo.addRow(materiasList);
-            }
-            materias.setModel(modelo);
-            columnModel = materias.getColumnModel();
+            docentes.setModel(modelo);
+            columnModel = docentes.getColumnModel();
             columnModel.getColumn(0).setPreferredWidth(1);//Ajustamos el tamaño de la columna 0
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
     }
 
-    private void agregarMateria() {
+    private void agregarDocente() {
         try {
-            String sql = "insert into materia values(?,?,?,?)";
+            String sql = "insert into docentes values(?,?)";
             PreparedStatement psd = cn.prepareStatement(sql);
             psd.setString(1, null);
-            psd.setString(2, nombreMateria.getText());
-            psd.setInt(3, devolverIdDocente(String.valueOf(docente.getSelectedItem())));
-            psd.setInt(4, devolverIdCarrera(String.valueOf(carrera.getSelectedItem())));
+            psd.setString(2, nombreDocente.getText());
             int r = psd.executeUpdate();
             if (r > 0) {
-                JOptionPane.showMessageDialog(null, "Se ha agregado la materia\n'"+nombreMateria.getText()+"'\ncorrectamente");
-                cargarTablaMaterias();
+                JOptionPane.showMessageDialog(null, "Se ha agregado el docente\n'"+nombreDocente.getText()+"'\ncorrectamente");
+                cargarTablaDocentes();
                 BorrarTxt();
             }
         } catch (SQLException ex) {
@@ -329,22 +246,22 @@ public class Docente extends javax.swing.JFrame {
         }
     }
 
-    private void editarMateria() {
-        if (nombreMateria.getText().isEmpty() || nombreMateria.equals("")) {
+    private void editarDocente() {
+        if (nombreDocente.getText().isEmpty() || nombreDocente.equals("")) {
 
-            JOptionPane.showMessageDialog(this, "Debe un nombre de materia");
-            nombreMateria.requestFocus();
+            JOptionPane.showMessageDialog(this, "Debe un ingresar un nombre para el docenet");
+            nombreDocente.requestFocus();
 
         } else {
             try {
-                String sql = "Update materia set nombre='" + nombreMateria.getText() + "', docenteID='" + devolverIdDocente(String.valueOf(docente.getSelectedItem())) + "', carreraID='" + devolverIdCarrera(String.valueOf(carrera.getSelectedItem()))+ "' WHERE id='" + idActual + "'";
+                String sql = "Update docentes set nombre='" + nombreDocente.getText() + "' WHERE id='" + idActual + "'";
                 PreparedStatement psd = cn.prepareStatement(sql);
 
                 int n = psd.executeUpdate();
 
                 if (n > 0) {
                     JOptionPane.showMessageDialog(null, "Actualizo Correctamente");
-                    cargarTablaMaterias();
+                    cargarTablaDocentes();
                     BorrarTxt();
                     cerrarEdicion();
                 }
@@ -354,13 +271,13 @@ public class Docente extends javax.swing.JFrame {
         }
     }
 
-    private void borrarMateria() {
+    private void borrarDocente() {
         if (JOptionPane.showConfirmDialog(new JInternalFrame(),
                 "Estas seguro de borrar el registro",
                 "Borrar registros", JOptionPane.WARNING_MESSAGE,
                 JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
             try {
-                String sql = "DELETE  FROM materia WHERE id = '" + idActual + "'";
+                String sql = "DELETE  FROM docentes WHERE id = '" + idActual + "'";
 
                 PreparedStatement psd = cn.prepareStatement(sql);
 
@@ -368,7 +285,7 @@ public class Docente extends javax.swing.JFrame {
 
                 if (n > 0) {
                     JOptionPane.showMessageDialog(null, "Se elimino correctamente");
-                    cargarTablaMaterias();
+                    cargarTablaDocentes();
                     BorrarTxt();
                     cerrarEdicion();
                 }
@@ -380,64 +297,24 @@ public class Docente extends javax.swing.JFrame {
     }
     
     private void BorrarTxt() {
-        nombreMateria.setText("");
+        nombreDocente.setText("");
     }
 
-    private void seleccionarMateria() {
-        materias.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+    private void seleccionarDocente() {
+        docentes.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 activarBotonesEdicion();
-                if (materias.getSelectedRow() != -1) {
+                if (docentes.getSelectedRow() != -1) {
                     jbtn_Nuevo.setEnabled(false);
-                    fila = materias.getSelectedRow();
-                    nombreMateria.setText(materias.getValueAt(fila, 1).toString());
-                    docente.setSelectedIndex(devolverIndexDocente(materias.getValueAt(fila, 2).toString()));
-                    carrera.setSelectedIndex(devolverIndexCarrera(materias.getValueAt(fila, 3).toString()));
-                    idActual = Integer.valueOf(materias.getValueAt(fila, 0).toString()); //Guardamos el ID para actualizar o eliminar posteriormente
+                    fila = docentes.getSelectedRow();
+                    nombreDocente.setText(docentes.getValueAt(fila, 1).toString());
+                    idActual = Integer.valueOf(docentes.getValueAt(fila, 0).toString()); //Guardamos el ID para actualizar o eliminar posteriormente
                 }
             }
 
             
         });
-    }
-    
-    private String devolverDocente(String id){
-        
-        for (int i = 0; i < docentesList.length; i++) {
-            if (idsDocentes[i].equals(id)) {
-            return docentesList[i];
-            }
-        }
-        return "";
-    }
-    
-    private String devolverCarrera(String id){
-        
-        for (int i = 0; i < carrerasList.length; i++) {
-            if (idsCarreras[i].equals(id)) {
-            return carrerasList[i];
-            }
-        }
-        return "";
-    }
-    
-    private int devolverIndexDocente(String nombre) {
-        for (int i = 0; i < docentesList.length; i++) {
-            if (docentesList[i].equals(nombre)) {
-            return i;
-            }
-        }
-        return 0;
-    }
-    
-    private int devolverIndexCarrera(String nombre) {
-        for (int i = 0; i < carrerasList.length; i++) {
-            if (carrerasList[i].equals(nombre)) {
-            return i;
-            }
-        }
-        return 0;
     }
     
     private void activarBotonesEdicion() {
@@ -450,25 +327,8 @@ public class Docente extends javax.swing.JFrame {
         jbtn_editar.setEnabled(false);
         jbtn_Eliminar.setEnabled(false);
         cancelar.setEnabled(false);
-        nombreMateria.setText("");
+        nombreDocente.setText("");
         jbtn_Nuevo.setEnabled(true);
     }
 
-    private int devolverIdDocente(String nombre) {
-        for (int i = 0; i < docentesList.length; i++) {
-            if (docentesList[i].equals(nombre)) {
-            return Integer.valueOf(idsDocentes[i]);
-            }
-        }
-        return 0;
-    }
-    
-    private int devolverIdCarrera(String nombre) {
-        for (int i = 0; i < carrerasList.length; i++) {
-            if (carrerasList[i].equals(nombre)) {
-            return Integer.valueOf(idsCarreras[i]);
-            }
-        }
-        return 0;
-    }
 }
